@@ -8,6 +8,8 @@ using namespace std;
 using namespace My;
 
 Scene::Scene(const std::string& name)
-    : root(get<1>(World::CreateEntity<Cmpt::SObj>())) {
-  root->name = name;
+    : root(new SObj(get<0>(World::CreateEntity<>()), name)) {}
+
+Scene::~Scene() {
+  delete root;
 }

@@ -14,7 +14,6 @@ ADD_TARGET(MODE "LIB"
         LIBS
         "My::${GM_PACKAGE_NAME}_core"
         "My::${ECS_PACKAGE_NAME}_core"
-        "My::${ECS_PACKAGE_NAME}_cmpt"
         "My::${DP_PACKAGE_NAME}_core"
         "My::${TEMPLATE_PACKAGE_NAME}_core"
 )

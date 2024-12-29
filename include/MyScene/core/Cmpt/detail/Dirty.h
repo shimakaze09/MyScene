@@ -20,7 +20,7 @@ class Dirty {
   const T& Get() const {
     if (dirty) {
       dirty = false;
-      update(t);
+//      update(t);
     }
     return t;
   }

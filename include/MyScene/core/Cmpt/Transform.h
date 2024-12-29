@@ -6,12 +6,12 @@
 
 #include "detail/Dirty.h"
 
-#include <MyECS/cmpt/ECmpt.h>
+#include "../Component.h"
 
 #include <MyGM/transform.h>
 
 namespace My::Cmpt {
-class Transform : public ECmpt {
+class Transform : public Component {
  public:
   const pointf3 pos{0.f};
   const scalef3 scale{1.f};
@@ -19,7 +19,7 @@ class Transform : public ECmpt {
 
   detail::UScene::Dirty<transformf> tsfm;
 
-  Transform(Entity* entity);
+  Transform();
 
   void SetPosition(const pointf3& pos);
   void SetScale(const scalef3& scale);
@@ -28,5 +28,11 @@ class Transform : public ECmpt {
   void Init(const pointf3& pos = pointf3{0.f},
             const scalef3& scale = scalef3{1.f},
             const quatf& rot = quatf::identity());
+
+  const transformf GetLocalToWorldMatrix() const;
+
+  const pointf3 GetWorldPos() const {
+    return GetLocalToWorldMatrix().decompose_position();
+  }
 };
 }  // namespace My::Cmpt
