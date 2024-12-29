@@ -6,6 +6,8 @@
 
 #include "Light.h"
 
+#include <MyGM/rgb.h>
+
 namespace My {
 struct PointLight : Light {
   // point light's luminance : intensity * color * delta(A)

@@ -6,9 +6,7 @@
 
 #include "../Component.h"
 
-namespace My {
-class Material;
-}
+#include "../Material/Material.h"
 
 namespace My::Cmpt {
 

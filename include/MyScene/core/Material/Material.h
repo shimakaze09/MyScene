@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <UGM/UGM>
-
 namespace My {
 struct Material {
   virtual ~Material() = default;

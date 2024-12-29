@@ -6,9 +6,7 @@
 
 #include "../Component.h"
 
-namespace My {
-class Primitive;
-}
+#include "../Primitive/Primitive.h"
 
 namespace My::Cmpt {
 

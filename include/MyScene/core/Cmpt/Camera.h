@@ -6,7 +6,6 @@
 
 #include "../Component.h"
 
-#include <MyDP/Basic/Dirty.h>
 #include <MyGM/ray.h>
 
 namespace My::Cmpt {

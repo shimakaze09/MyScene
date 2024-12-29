@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <MyGM/MyGM>
-
 namespace My {
 struct Light {
   virtual ~Light() = default;

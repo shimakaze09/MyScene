@@ -6,9 +6,7 @@
 
 #include "../Component.h"
 
-namespace My {
-class Light;
-}
+#include "../Light/Light.h"
 
 namespace My::Cmpt {
 

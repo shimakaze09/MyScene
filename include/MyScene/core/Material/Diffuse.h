@@ -6,6 +6,8 @@
 
 #include "Material.h"
 
+#include <MyGM/rgb.h>
+
 namespace My {
 struct Diffuse : Material {
   rgbf albedo;
