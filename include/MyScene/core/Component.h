@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <MyDP/Basic/Read.h>
+
 namespace My {
 class SObj;
 
@@ -12,12 +14,6 @@ class Component {
   Component() = default;
   virtual ~Component() = default;
 
-  SObj* GetSObj() { return sobj; }
-
-  const SObj* GetSObj() const { return sobj; }
-
- private:
-  SObj* sobj{nullptr};
-  friend class SObj;
+  Read<SObj, SObj*> sobj;
 };
 }  // namespace My

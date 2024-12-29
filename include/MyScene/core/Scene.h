@@ -8,23 +8,21 @@
 
 #include <MyECS/World.h>
 
+#include <MyDP/Basic/Read.h>
+
 namespace My {
 class Scene : public World {
  public:
+  Read<Scene, SObj*> root;
+
   Scene(const std::string& name);
   ~Scene();
-
-  SObj* Root() { return root; }
-
-  const SObj* Root() const { return root; }
 
   template <typename... Cmpts>
   std::tuple<SObj*, Cmpts*...> CreateSObj(const std::string& name,
                                           SObj* parent = nullptr);
 
  private:
-  SObj* const root;
-
   using World::CreateEntity;
 };
 }  // namespace My

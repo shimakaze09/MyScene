@@ -8,15 +8,17 @@
 
 #include "../Primitive/Primitive.h"
 
+#include <MyDP/Basic/Read.h>
+
 namespace My::Cmpt {
 
 class Geometry : public Component {
  public:
-  Primitive* const volatile primitive{nullptr};
+  Read<Geometry, Primitive*> primitive{nullptr};
 
   void SetPrimitive(Primitive* primitive) {
     delete this->primitive;
-    const_cast<Primitive*&>(this->primitive) = primitive;
+    this->primitive = primitive;
   }
 };
 }  // namespace My::Cmpt

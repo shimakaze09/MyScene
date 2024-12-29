@@ -8,14 +8,15 @@
 
 #include "../Component.h"
 
+#include <MyGM/Basic/Read.h>
 #include <MyGM/transform.h>
 
 namespace My::Cmpt {
 class Transform : public Component {
  public:
-  const pointf3 pos{0.f};
-  const scalef3 scale{1.f};
-  const quatf rot{quatf::identity()};
+  Read<Transform, pointf3> pos{0.f};
+  Read<Transform, scalef3> scale{1.f};
+  Read<Transform, quatf> rot{quatf::identity()};
 
   detail::UScene::Dirty<transformf> tsfm;
 

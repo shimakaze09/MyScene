@@ -1,0 +1,24 @@
+//
+// Created by Admin on 30/12/2024.
+//
+
+#pragma once
+
+#include "Component.h"
+#include "SObj.h"
+#include "Scene.h"
+
+#include "Cmpt/Camera.h"
+#include "Cmpt/Geometry.h"
+#include "Cmpt/Light.h"
+#include "Cmpt/Material.h"
+#include "Cmpt/Transform.h"
+
+#include "Light/Light.h"
+#include "Light/PointLight.h"
+
+#include "Material/Diffuse.h"
+#include "Material/Material.h"
+
+#include "Primitive/Primitive.h"
+#include "Primitive/Sphere.h"

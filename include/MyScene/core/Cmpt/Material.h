@@ -8,15 +8,17 @@
 
 #include "../Material/Material.h"
 
+#include <MyDP/Basic/Read.h>
+
 namespace My::Cmpt {
 
 class Material : public Component {
  public:
-  My::Material* const volatile material{nullptr};
+  Read<Material, My::Material*> material{nullptr};
 
   void SetMaterial(My::Material* material) {
     delete this->material;
-    const_cast<My::Material*&>(this->material) = material;
+    this->material = material;
   }
 };
 }  // namespace My::Cmpt

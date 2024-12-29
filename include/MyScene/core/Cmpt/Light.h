@@ -8,15 +8,17 @@
 
 #include "../Light/Light.h"
 
+#include <MyDP/Basic/Read.h>
+
 namespace My::Cmpt {
 
 class Light : public Component {
  public:
-  My::Light* const volatile light{nullptr};
+  Read<Light, My::Light*> light{nullptr};
 
   void SetLight(My::Light* light) {
     delete this->light;
-    const_cast<My::Light*&>(this->light) = light;
+    this->light = light;
   }
 };
 }  // namespace My::Cmpt
