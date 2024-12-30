@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Component.h"
-#include "ResourceMngr.h"
 #include "SObj.h"
 #include "Scene.h"
 

@@ -9,6 +9,8 @@
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/ReflectionMngr.h>
 
+#include <MyScene/tool/ResourceMngr.h>
+
 #include <rapidjson/error/en.h>
 
 #include <iostream>
