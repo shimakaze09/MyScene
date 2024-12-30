@@ -6,10 +6,15 @@
 
 #include "IDeserializer.h"
 
+#include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
 #include <rapidjson/document.h>
 
 #include <MyGM/MyGM>
+
+#include <functional>
+#include <map>
+#include <string>
 
 namespace My {
 class DeserializerJSON : public IDeserializer,
@@ -19,6 +24,16 @@ class DeserializerJSON : public IDeserializer,
 
   virtual Scene* DeserializeScene(const std::string& json) override;
   virtual SObj* DeserializeSObj(const std::string& json) override;
+
+  template <typename Func>
+  void RegistParseObj(Func&& func) {
+    using T = std::remove_pointer_t<FuncTraits_Ret<Func>>;
+    type2func[Reflection<T>::Instance().GetName()] =
+        [func =
+             std::forward<Func>(func)](const rapidjson::Value* cur) -> void* {
+      return reinterpret_cast<void*>(func(cur));
+    };
+  }
 
  protected:
   template <typename T>
@@ -65,6 +80,8 @@ class DeserializerJSON : public IDeserializer,
   template <typename T>
   void ImplVisit(My::transform<T>& val);
 
+  void ImplVisit(std::string& val);
+
   void Set(bool& property, const rapidjson::Value& value);
   void Set(float& property, const rapidjson::Value& value);
   void Set(double& property, const rapidjson::Value& value);
@@ -88,5 +105,9 @@ class DeserializerJSON : public IDeserializer,
   // for visitor
   const rapidjson::Value* cur{nullptr};
   void* rstObj{nullptr};
+
+  // dynamic
+  std::map<std::string, std::function<void*(const rapidjson::Value* cur)>>
+      type2func;
 };
 }  // namespace My

@@ -19,9 +19,9 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
                       public ReflTraitsVisitor {
  public:
   VarSerializer() {
-    VarPtrVisitor<VarSerializer>::RegistC<float, string, set<SObj*>, SObj*,
-                                          vecf3, rgbf, pointf3, quatf, scalef3,
-                                          Primitive*, Light*, Material*>();
+    VarPtrVisitor<VarSerializer>::RegistC<
+        float, string, set<SObj*>, SObj*, vecf3, rgbf, pointf3, quatf, scalef3,
+        Primitive*, Light*, Material*, Image*>();
   }
 
   using VarPtrVisitor<VarSerializer>::Regist;
@@ -60,7 +60,9 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
 
   template <typename T>
   void ImplVisit(T* const& p) {
-    if (IsRegisted<T>())
+    if (p == nullptr)
+      cout << "null";
+    else if (IsRegisted<T>())
       Visit(p);
     else
       cout << p;
@@ -196,7 +198,7 @@ int main() {
       scene.CreateSObj<Cmpt::Transform, Cmpt::Light>("sobj2");
 
   geo->SetPrimitive(new Sphere);
-  mat->SetMaterial(new Diffuse{1.f});
+  mat->SetMaterial(new stdBRDF{1.f});
   light->SetLight(new PointLight{1.f, 1.f});
 
   VarSerializer vs;

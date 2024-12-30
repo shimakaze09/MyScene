@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20 FATAL_ERROR)
 
 # Set the project
-PROJECT(MyScene VERSION 0.1.0 LANGUAGES CXX)
+PROJECT(MyScene VERSION 0.1.1 LANGUAGES CXX)
 MESSAGE(STATUS "Project: ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 # Add 'd' postfix for debug builds
@@ -60,12 +60,22 @@ ELSE ()
     MESSAGE(STATUS "RapidJSON not found")
 ENDIF ()
 
+# stb_image
+MESSAGE(STATUS "----------")
+IF(EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h"
+        AND EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image_write.h")
+    MESSAGE(STATUS "found stb_image.h and stb_image_write.h")
+ELSE()
+    MESSAGE(FATAL_ERROR "not found stb_image.h or stb_image_write.h in include/_deps/\n"
+            "read setup.md for more detail")
+endif()
+
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
 ADD_DEP(MyDP 0.2.7)
 ADD_DEP(MyECS 0.3.3)
-ADD_DEP(MyGM 0.3.0)
+ADD_DEP(MyGM 0.3.3)
 ADD_DEP(MyTemplate 0.2.0)
 
 ADD_SUB_DIRS(src)

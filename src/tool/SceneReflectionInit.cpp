@@ -95,8 +95,22 @@ void My::SceneReflectionInit() {
 
   Reflection<Material>::Instance().SetName("My::Material");
 
-  Reflection<Diffuse>::Instance()
-      .SetName("My::Diffuse")
-      .Regist(&Diffuse::albedo, "albedo")
+  Reflection<stdBRDF>::Instance()
+      .SetName("My::stdBRDF")
+      .Regist(&stdBRDF::albedo_factor, "albedo_factor")
+      .Regist(&stdBRDF::albedo_texture, "albedo_texture")
+      .Regist(&stdBRDF::roughness_factor, "roughness_factor")
+      .Regist(&stdBRDF::roughness_texture, "roughness_texture")
+      .Regist(&stdBRDF::metalness_factor, "metalness_factor")
+      .Regist(&stdBRDF::metalness_texture, "metalness_texture")
+      .Regist(&stdBRDF::normal_map, "normal_map")
+      .RegistConstructor();
+
+  Reflection<Image>::Instance()
+      .SetName("My::Image")
+      .Regist(&Image::width, "width")
+      .Regist(&Image::height, "height")
+      .Regist(&Image::channel, "channel")
+      .Regist(&Image::path, "path")
       .RegistConstructor();
 }

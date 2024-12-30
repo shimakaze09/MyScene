@@ -11,7 +11,7 @@
 #include <MyScene/core/Cmpt/Transform.h>
 
 #include <MyScene/core/Light/PointLight.h>
-#include <MyScene/core/Material/Diffuse.h>
+#include <MyScene/core/Material/stdBRDF.h>
 #include <MyScene/core/Primitive/Sphere.h>
 
 #include <iostream>
@@ -31,7 +31,7 @@ int main() {
       scene.CreateSObj<Cmpt::Transform, Cmpt::Light>("sobj2");
 
   geo->SetPrimitive(new Sphere);
-  mat->SetMaterial(new Diffuse{1.f});
+  mat->SetMaterial(new stdBRDF);
   light->SetLight(new PointLight{1.f, 1.f});
 
   return 0;

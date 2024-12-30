@@ -36,7 +36,14 @@ DeserializerJSON::DeserializerJSON() {
 
          Primitive*, Light*, Material*,
 
+         Image*, string,
+
          SObj*>();
+
+  RegistParseObj([](const rapidjson::Value* cur) {
+    string path = cur->FindMember("path")->value.GetString();
+    return ResourceMngr<Image>::Instance().GetOrCreate(path, path);
+  });
 }
 
 Scene* DeserializerJSON::DeserializeScene(const std::string& json) {
@@ -96,6 +103,9 @@ void DeserializerJSON::ParseSObj(Scene* scene, SObj* sobj,
 }
 
 void* DeserializerJSON::ParseObj(const rapidjson::Value& value) {
+  if (value.IsNull())
+    return nullptr;
+
   if (!value.HasMember("type")) {
     cerr << "ERROR::DeserializerJSON::ParseObj:" << endl
          << "\t" << "no type" << endl;
@@ -103,6 +113,10 @@ void* DeserializerJSON::ParseObj(const rapidjson::Value& value) {
   }
 
   const Value& name = value["type"];
+  auto target = type2func.find(string{name.GetString()});
+  if (target != type2func.end())
+    return target->second(cur);
+
   void* obj = ReflectionMngr::Instance().Create(name.GetString());
   if (!obj) {
     cerr << "ERROR::DeserializerJSON::ParseObj:" << endl
@@ -206,8 +220,12 @@ void DeserializerJSON::ImplVisit(mat<T, N>& val) {
 }
 
 template <typename T>
-void DeserializerJSON::ImplVisit(My::transform<T>& val) {
+void DeserializerJSON::ImplVisit(Ubpa::transform<T>& val) {
   DeserializeArray(val, *cur);
+}
+
+void DeserializerJSON::ImplVisit(string& val) {
+  val = cur->GetString();
 }
 
 void DeserializerJSON::Set(bool& property, const rapidjson::Value& value) {

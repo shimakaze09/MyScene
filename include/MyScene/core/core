@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Component.h"
+#include "ResourceMngr.h"
 #include "SObj.h"
 #include "Scene.h"
 
@@ -17,8 +18,10 @@
 #include "Light/Light.h"
 #include "Light/PointLight.h"
 
-#include "Material/Diffuse.h"
 #include "Material/Material.h"
+#include "Material/stdBRDF.h"
+
+#include "Material/Image.h"
 
 #include "Primitive/Primitive.h"
 #include "Primitive/Sphere.h"

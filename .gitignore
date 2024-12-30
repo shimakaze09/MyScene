@@ -686,3 +686,7 @@ FodyWeavers.xsd
 # Bin and Lib
 **/bin/*
 **/lib/*
+
+# MISC
+_deps/
+*.myscene

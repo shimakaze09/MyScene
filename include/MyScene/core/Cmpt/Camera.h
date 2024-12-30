@@ -21,7 +21,7 @@ class Camera : public Component {
   void Init(float fov, float ar);  // auto set pose
 
   // call Init() before calling GenRay
-  rayf3 GenRay(float u, float v) const {
+  rayf3 GenRay(float u, float v) const noexcept {
     return {pos, posToLBCorner + u * right + v * up};
   }
 
