@@ -84,8 +84,8 @@ void DeserializerJSON::ParseSObj(Scene* scene, SObj* sobj,
 
   sobj->name = value["name"].GetString();
   for (const auto& cmptObj : value["Components"].GetArray()) {
-    auto cmpt = ReflectionMngr::Instance().CreatCustom(
-        cmptObj["type"].GetString(), sobj);
+    auto cmpt =
+        ReflectionMngr::Instance().Create(cmptObj["type"].GetString(), sobj);
     ParseObj(cmpt, cmptObj);
   }
 
@@ -103,7 +103,7 @@ void* DeserializerJSON::ParseObj(const rapidjson::Value& value) {
   }
 
   const Value& name = value["type"];
-  void* obj = ReflectionMngr::Instance().Creat(name.GetString());
+  void* obj = ReflectionMngr::Instance().Create(name.GetString());
   if (!obj) {
     cerr << "ERROR::DeserializerJSON::ParseObj:" << endl
          << "\t" << "create" << name.GetString() << "fail" << endl;
