@@ -26,9 +26,9 @@ int main() {
   auto [sobj2, tsfm2, light] =
       scene.CreateSObj<Cmpt::Transform, Cmpt::Light>("sobj2");
 
-  geo->SetPrimitive(new Sphere);
-  mat->SetMaterial(new Diffuse{1.f});
-  light->SetLight(new PointLight{1.f, 1.f});
+  sobj1->Get<Cmpt::Geometry>()->SetPrimitive(new Sphere);
+  sobj1->Get<Cmpt::Material>()->SetMaterial(new Diffuse{1.f});
+  sobj2->Get<Cmpt::Light>()->SetLight(new PointLight{1.f, 1.f});
 
   ISerializer* serializer = new SerializerJSON;
   IDeserializer* deserializer = new DeserializerJSON;
@@ -38,7 +38,7 @@ int main() {
   rst = serializer->Serialize(rstScene);
 
   ofstream ofs;
-  string filename = "../data/test_04_output.uscene";
+  string filename = "../data/test_04_output.myscene";
   ofs.open(filename);
   if (!ofs.is_open()) {
     cerr << "ERROR::main:" << endl
