@@ -2,16 +2,16 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/serialize/Serializer_Json.h>
+#include <MyScene/tool/serialize/SerializerJSON.h>
 
 using namespace std;
 using namespace My;
 using namespace rapidjson;
 
-Serializer_Json::Serializer_Json() {
+SerializerJSON::SerializerJSON() {
   ReflTraitsIniter::Instance().InitC(*this);
 
-  VarPtrVisitor<Serializer_Json>::RegistC<
+  VarPtrVisitor<SerializerJSON>::RegistC<
       bool, float, double, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t,
       uint32_t, uint64_t,
 
@@ -43,7 +43,7 @@ Serializer_Json::Serializer_Json() {
   });
 }
 
-string Serializer_Json::Serialize(const Scene* scene) {
+string SerializerJSON::Serialize(const Scene* scene) {
   buffer.Clear();
   writer.Reset(buffer);
 
@@ -52,7 +52,7 @@ string Serializer_Json::Serialize(const Scene* scene) {
   return buffer.GetString();
 }
 
-string Serializer_Json::Serialize(const SObj* sobj) {
+string SerializerJSON::Serialize(const SObj* sobj) {
   buffer.Clear();
   writer.Reset(buffer);
 
@@ -61,121 +61,154 @@ string Serializer_Json::Serialize(const SObj* sobj) {
   return buffer.GetString();
 }
 
-void Serializer_Json::Receive(
+void SerializerJSON::Receive(
     const string& name, const map<string, shared_ptr<const VarPtrBase>>& nv) {
   writer.Key("type");
   writer.String(name.c_str());
 
   for (auto [n, v] : nv) {
     writer.Key(n.c_str());
-    VarPtrVisitor<Serializer_Json>::Visit(v);
+    VarPtrVisitor<SerializerJSON>::Visit(v);
   }
 }
 
-void Serializer_Json::ImplVisit(const bool& val) {
+template <typename T>
+void SerializerJSON::SerializeObj(const T* obj) {
+  if (!obj) {
+    writer.Null();
+    return;
+  }
+
+  writer.StartObject();
+  if constexpr (std::is_void_v<T>)
+    Visit(obj);
+  else {
+    if (IsRegisted<T>())
+      Visit(obj);
+  }
+  SerializeOtherMember(obj);
+  writer.EndObject();
+}
+
+template <typename T>
+void SerializerJSON::SerializeOtherMember(const T* p) {
+  auto target = callbacks.find(TypeID<T>);
+  if (target != callbacks.end())
+    target->second(reinterpret_cast<const void*>(p));
+}
+
+template <typename T>
+void SerializerJSON::SerializeArray(const T& arr) {
+  writer.StartArray();
+  for (const auto& ele : arr)
+    ImplVisit(ele);
+  writer.EndArray();
+}
+
+void SerializerJSON::ImplVisit(const bool& val) {
   writer.Bool(val);
 }
 
-void Serializer_Json::ImplVisit(const float& val) {
+void SerializerJSON::ImplVisit(const float& val) {
   writer.Double(val);
 }
 
-void Serializer_Json::ImplVisit(const double& val) {
+void SerializerJSON::ImplVisit(const double& val) {
   writer.Double(val);
 }
 
-void Serializer_Json::ImplVisit(const int8_t& val) {
+void SerializerJSON::ImplVisit(const int8_t& val) {
   writer.Int(val);
 }
 
-void Serializer_Json::ImplVisit(const int16_t& val) {
+void SerializerJSON::ImplVisit(const int16_t& val) {
   writer.Int(val);
 }
 
-void Serializer_Json::ImplVisit(const int32_t& val) {
+void SerializerJSON::ImplVisit(const int32_t& val) {
   writer.Int(val);
 }
 
-void Serializer_Json::ImplVisit(const int64_t& val) {
+void SerializerJSON::ImplVisit(const int64_t& val) {
   writer.Int64(val);
 }
 
-void Serializer_Json::ImplVisit(const uint8_t& val) {
+void SerializerJSON::ImplVisit(const uint8_t& val) {
   writer.Uint(val);
 }
 
-void Serializer_Json::ImplVisit(const uint16_t& val) {
+void SerializerJSON::ImplVisit(const uint16_t& val) {
   writer.Uint(val);
 }
 
-void Serializer_Json::ImplVisit(const uint32_t& val) {
+void SerializerJSON::ImplVisit(const uint32_t& val) {
   writer.Uint(val);
 }
 
-void Serializer_Json::ImplVisit(const uint64_t& val) {
+void SerializerJSON::ImplVisit(const uint64_t& val) {
   writer.Uint64(val);
 }
 
 template <typename T, size_t N>
-void Serializer_Json::ImplVisit(const val<T, N>& val) {
+void SerializerJSON::ImplVisit(const val<T, N>& val) {
   SerializeArray(val);
 }
 
 template <typename T, size_t N>
-void Serializer_Json::ImplVisit(const point<T, N>& val) {
+void SerializerJSON::ImplVisit(const point<T, N>& val) {
   SerializeArray(val);
 }
 
 template <typename T, size_t N>
-void Serializer_Json::ImplVisit(const vec<T, N>& val) {
+void SerializerJSON::ImplVisit(const vec<T, N>& val) {
   SerializeArray(val);
 }
 
 template <typename T, size_t N>
-void Serializer_Json::ImplVisit(const scale<T, N>& val) {
+void SerializerJSON::ImplVisit(const scale<T, N>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const rgb<T>& val) {
+void SerializerJSON::ImplVisit(const rgb<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const rgba<T>& val) {
+void SerializerJSON::ImplVisit(const rgba<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const quat<T>& val) {
+void SerializerJSON::ImplVisit(const quat<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const euler<T>& val) {
+void SerializerJSON::ImplVisit(const euler<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const normal<T>& val) {
+void SerializerJSON::ImplVisit(const normal<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T, size_t N>
-void Serializer_Json::ImplVisit(const mat<T, N>& val) {
+void SerializerJSON::ImplVisit(const mat<T, N>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const Ubpa::transform<T>& val) {
+void SerializerJSON::ImplVisit(const My::transform<T>& val) {
   SerializeArray(val);
 }
 
 template <typename T>
-void Serializer_Json::ImplVisit(const std::set<T*>& val) {
+void SerializerJSON::ImplVisit(const std::set<T*>& val) {
   SerializeArray(val);
 }
 
-void Serializer_Json::ImplVisit(const std::string& val) {
+void SerializerJSON::ImplVisit(const std::string& val) {
   writer.String(val.c_str());
 }

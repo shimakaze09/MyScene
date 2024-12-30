@@ -23,7 +23,8 @@ void My::SceneReflectionInit() {
 
   Reflection<Scene>::Instance()
       .SetName("My::Scene")
-      .Regist(&Scene::root, "root");
+      .Regist(&Scene::root, "root")
+      .RegistDefaultConstructor();
 
   // =================== Component ===================
 
@@ -32,40 +33,65 @@ void My::SceneReflectionInit() {
   Reflection<Cmpt::Camera>::Instance()
       .SetName("My::Cmpt::Camera")
       .Regist(&Cmpt::Camera::ar, "ar")
-      .Regist(&Cmpt::Camera::fov, "fov");
+      .Regist(&Cmpt::Camera::fov, "fov")
+      .RegistCustomConstructor([](SObj* sobj) {
+        auto [cmpt] = sobj->Attach<Cmpt::Camera>();
+        return cmpt;
+      });
 
   Reflection<Cmpt::Geometry>::Instance()
       .SetName("My::Cmpt::Geometry")
-      .Regist(&Cmpt::Geometry::primitive, "primitive");
+      .Regist(&Cmpt::Geometry::primitive, "primitive")
+      .RegistCustomConstructor([](SObj* sobj) {
+        auto [cmpt] = sobj->Attach<Cmpt::Geometry>();
+        return cmpt;
+      });
 
   Reflection<Cmpt::Light>::Instance()
       .SetName("My::Cmpt::Light")
-      .Regist(&Cmpt::Light::light, "light");
+      .Regist(&Cmpt::Light::light, "light")
+      .RegistCustomConstructor([](SObj* sobj) {
+        auto [cmpt] = sobj->Attach<Cmpt::Light>();
+        return cmpt;
+      });
 
   Reflection<Cmpt::Material>::Instance()
       .SetName("My::Cmpt::Material")
-      .Regist(&Cmpt::Material::material, "material");
+      .Regist(&Cmpt::Material::material, "material")
+      .RegistCustomConstructor([](SObj* sobj) {
+        auto [cmpt] = sobj->Attach<Cmpt::Material>();
+        return cmpt;
+      });
 
   Reflection<Cmpt::Transform>::Instance()
       .SetName("My::Cmpt::Transform")
       .Regist(&Cmpt::Transform::pos, "pos")
       .Regist(&Cmpt::Transform::scale, "scale")
-      .Regist(&Cmpt::Transform::rot, "rot");
+      .Regist(&Cmpt::Transform::rot, "rot")
+      .RegistCustomConstructor([](SObj* sobj) {
+        auto [cmpt] = sobj->Attach<Cmpt::Transform>();
+        return cmpt;
+      });
 
   // =================== Light ===================
 
-  Reflection<Light>::Instance().SetName("My::Light");
+  Reflection<Light>::Instance().SetName("My::Light").RegistDefaultConstructor();
 
   Reflection<PointLight>::Instance()
       .SetName("My::PointLight")
       .Regist(&PointLight::intensity, "intensity")
-      .Regist(&PointLight::color, "color");
+      .Regist(&PointLight::color, "color")
+      .RegistDefaultConstructor();
 
   // =================== Primitive ===================
 
-  Reflection<Primitive>::Instance().SetName("My::Primitive");
+  Reflection<Primitive>::Instance()
+      .SetName("My::Primitive")
+      .RegistDefaultConstructor();
 
-  Reflection<Sphere>::Instance().SetName("My::Sphere");
+  Reflection<Sphere>::Instance()
+      .SetName("My::Sphere")
+      .RegistDefaultConstructor();
 
   // =================== Material ===================
 
@@ -73,5 +99,6 @@ void My::SceneReflectionInit() {
 
   Reflection<Diffuse>::Instance()
       .SetName("My::Diffuse")
-      .Regist(&Diffuse::albedo, "albedo");
+      .Regist(&Diffuse::albedo, "albedo")
+      .RegistDefaultConstructor();
 }

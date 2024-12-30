@@ -20,8 +20,6 @@ class Transform : public Component {
 
   Dirty<transformf> tsfm;
 
-  Transform();
-
   void SetPosition(const pointf3& pos);
   void SetScale(const scalef3& scale);
   void SetRotation(const quatf& rot);
@@ -35,5 +33,8 @@ class Transform : public Component {
   const pointf3 GetWorldPos() const {
     return GetLocalToWorldMatrix().decompose_position();
   }
+
+  Transform();
+  Transform(Transform&& tsfm) = default;
 };
 }  // namespace My::Cmpt

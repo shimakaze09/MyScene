@@ -63,7 +63,7 @@ ENDIF ()
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
-ADD_DEP(MyDP 0.2.6)
+ADD_DEP(MyDP 0.2.7)
 ADD_DEP(MyECS 0.3.2)
 ADD_DEP(MyGM 0.3.0)
 ADD_DEP(MyTemplate 0.2.0)

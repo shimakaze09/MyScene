@@ -14,12 +14,12 @@
 #include <rapidjson/writer.h>
 
 namespace My {
-class Serializer_Json : public ISerializer,
-                        public VarPtrVisitor<Serializer_Json> {
+class SerializerJSON : public ISerializer,
+                       public VarPtrVisitor<SerializerJSON> {
  public:
-  Serializer_Json();
+  SerializerJSON();
 
-  using VarPtrVisitor<Serializer_Json>::Regist;
+  using VarPtrVisitor<SerializerJSON>::Regist;
   using ReflTraitsVisitor::Visit;
 
   virtual std::string Serialize(const Scene* scene) override;
@@ -95,7 +95,7 @@ class Serializer_Json : public ISerializer,
   void ImplVisit(const mat<T, N>& val);
 
   template <typename T>
-  void ImplVisit(const Ubpa::transform<T>& val);
+  void ImplVisit(const My::transform<T>& val);
 
  private:
   virtual void Receive(
@@ -110,4 +110,4 @@ class Serializer_Json : public ISerializer,
 };
 }  // namespace My
 
-#include "detail/Serializer_Json.inl"
+#include "detail/SerializerJSON.inl"

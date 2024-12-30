@@ -3,6 +3,7 @@
 //
 
 #include <MyScene/tool/SceneReflectionInit.h>
+#include <MyScene/tool/serialize/DeserializerJSON.h>
 #include <MyScene/tool/serialize/SerializerJSON.h>
 #include <MyScene/core/core>
 
@@ -30,11 +31,14 @@ int main() {
   light->SetLight(new PointLight{1.f, 1.f});
 
   ISerializer* serializer = new SerializerJSON;
+  IDeserializer* deserializer = new DeserializerJSON;
 
   auto rst = serializer->Serialize(&scene);
+  auto rstScene = deserializer->DeserializeScene(rst);
+  rst = serializer->Serialize(rstScene);
 
   ofstream ofs;
-  string filename = "../data/test_03_output.uscene";
+  string filename = "../data/test_04_output.uscene";
   ofs.open(filename);
   if (!ofs.is_open()) {
     cerr << "ERROR::main:" << endl
