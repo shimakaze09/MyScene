@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20 FATAL_ERROR)
 
 # Set the project
-PROJECT(MyScene  VERSION 0.0.1 LANGUAGES CXX)
+PROJECT(MyScene VERSION 0.0.1 LANGUAGES CXX)
 MESSAGE(STATUS "Project: ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 # Add 'd' postfix for debug builds
@@ -51,10 +51,19 @@ ELSE ()
     MESSAGE(STATUS "MyCMake v0.3.0 built")
 ENDIF ()
 
+# Find RapidJSON
+MESSAGE(STATUS "Find package: RapidJSON")
+FIND_PACKAGE(RapidJSON)
+IF (${RapidJSON_FOUND})
+    MESSAGE(STATUS "RapidJSON found")
+ELSE ()
+    MESSAGE(STATUS "RapidJSON not found")
+ENDIF ()
+
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
-ADD_DEP(MyDP 0.2.4)
+ADD_DEP(MyDP 0.2.6)
 ADD_DEP(MyECS 0.3.2)
 ADD_DEP(MyGM 0.3.0)
 ADD_DEP(MyTemplate 0.2.0)
