@@ -43,7 +43,9 @@ class SerializerJSON : public ISerializer,
   }
 
   template <typename T>
-  void ImplVisit(const std::set<T*>& p);
+  void ImplVisit(const std::set<T>& p);
+  template <typename T>
+  void ImplVisit(const std::vector<T>& p);
   void ImplVisit(const std::string& p);
 
   template <typename T>

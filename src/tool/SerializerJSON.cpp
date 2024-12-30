@@ -34,7 +34,8 @@ SerializerJSON::SerializerJSON() {
 
       Image*,
 
-      std::string, std::set<SObj*>>();
+      string, set<SObj*>, vector<pointf3>, vector<pointf2>, vector<normalf>,
+      vector<vecf3>, vector<valu3>>();
 
   RegistSerializeOtherMember([this](const SObj* sobj) {
     GetWriter().Key("Components");
@@ -207,7 +208,12 @@ void SerializerJSON::ImplVisit(const My::transform<T>& val) {
 }
 
 template <typename T>
-void SerializerJSON::ImplVisit(const std::set<T*>& val) {
+void SerializerJSON::ImplVisit(const std::set<T>& val) {
+  SerializeArray(val);
+}
+
+template <typename T>
+void SerializerJSON::ImplVisit(const std::vector<T>& val) {
   SerializeArray(val);
 }
 

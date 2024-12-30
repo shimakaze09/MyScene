@@ -42,7 +42,7 @@ class DeserializerJSON : public IDeserializer,
   template <typename T>
   void ImplVisit(T*& obj);
 
-  template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
+  template <typename T>
   void ImplVisit(T& property) {
     Set(property, *cur);
   }
@@ -95,6 +95,8 @@ class DeserializerJSON : public IDeserializer,
   void Set(uint64_t& property, const rapidjson::Value& value);
   template <typename T>  // array
   void Set(T& property, const rapidjson::Value& value);
+  template <typename T>
+  void Set(std::vector<T>& property, const rapidjson::Value& value);
 
  private:
   Scene* ParseScene(const rapidjson::Document& doc);

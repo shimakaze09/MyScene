@@ -91,6 +91,15 @@ void My::SceneReflectionInit() {
 
   Reflection<Sphere>::Instance().SetName("My::Sphere").RegistConstructor();
 
+  Reflection<TriMesh>::Instance()
+      .SetName("My::TriMesh")
+      .Regist(&TriMesh::indices, "indices")
+      .Regist(&TriMesh::positions, "positions")
+      .Regist(&TriMesh::texcoords, "texcoords")
+      .Regist(&TriMesh::normals, "normals")
+      .Regist(&TriMesh::tangents, "tangents")
+      .RegistConstructor();
+
   // =================== Material ===================
 
   Reflection<Material>::Instance().SetName("My::Material");
