@@ -11,7 +11,6 @@
 #include <MyDP/Basic/Read.h>
 
 namespace My::Cmpt {
-
 class Light : public Component {
  public:
   Read<Light, My::Light*> light{nullptr};

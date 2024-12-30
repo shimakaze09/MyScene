@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "detail/Dirty.h"
-
 #include "../Component.h"
 
-#include <MyGM/Basic/Read.h>
 #include <MyGM/transform.h>
+
+#include <MyDP/Basic/Dirty.h>
+#include <MyDP/Basic/Read.h>
 
 namespace My::Cmpt {
 class Transform : public Component {
@@ -18,7 +18,7 @@ class Transform : public Component {
   Read<Transform, scalef3> scale{1.f};
   Read<Transform, quatf> rot{quatf::identity()};
 
-  detail::UScene::Dirty<transformf> tsfm;
+  Dirty<transformf> tsfm;
 
   Transform();
 
