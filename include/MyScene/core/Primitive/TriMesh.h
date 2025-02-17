@@ -28,7 +28,7 @@ class TriMesh : public Primitive {
           const std::vector<normalf>& normals = std::vector<normalf>(),
           const std::vector<vecf3>& tangents = std::vector<vecf3>());
 
-  enum class Type { Cube, Sphere, Plane };
+  enum class Type { Cube, Sphere, Square };
   TriMesh(Type type);
 
   // center : (0, 0, 0), side length: 2
@@ -36,7 +36,7 @@ class TriMesh : public Primitive {
   // 50 x 50 grid
   void InitSphereMesh();
   // center : (0, 0, 0), side length: 2, normal: (0, 1, 0)
-  void InitPlaneMesh();
+  void InitSquareMesh();
 
   bool Init(const std::vector<valu3>& indices,
             const std::vector<pointf3>& positions,

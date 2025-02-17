@@ -10,6 +10,7 @@
 #include <MyGM/ray.h>
 
 namespace My::Cmpt {
+// front is -z in local coordinate
 class Camera : public Component {
  public:
   Read<Camera, float> fov{
@@ -22,11 +23,11 @@ class Camera : public Component {
 
   // call Init() before calling GenRay
   rayf3 GenRay(float u, float v) const noexcept {
-    return {pos, posToLBCorner + u * right + v * up};
+    return {pos, (posToLBCorner + u * right + v * up).normalize()};
   }
 
  private:
-  // the imaging plane is 1m away
+  // the imaging square is 1m away
   pointf3 pos;                         // camera position
   vecf3 front;                         // normal
   const vecf3 worldUp{0.f, 1.f, 0.f};  // world upward

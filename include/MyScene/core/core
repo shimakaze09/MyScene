@@ -22,7 +22,7 @@
 
 #include "Material/Image.h"
 
-#include "Primitive/Plane.h"
+#include "Primitive/Square.h"
 #include "Primitive/Primitive.h"
 #include "Primitive/Sphere.h"
 #include "Primitive/TriMesh.h"

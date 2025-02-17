@@ -91,7 +91,7 @@ void My::SceneReflectionInit() {
 
   Reflection<Sphere>::Instance().SetName("My::Sphere").RegistConstructor();
 
-  Reflection<Plane>::Instance().SetName("My::Plane").RegistConstructor();
+  Reflection<Square>::Instance().SetName("My::Square").RegistConstructor();
 
   Reflection<Triangle>::Instance()
       .SetName("My::Triangle")

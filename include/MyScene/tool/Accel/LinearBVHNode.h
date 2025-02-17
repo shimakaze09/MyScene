@@ -28,10 +28,10 @@ class LinearBVHNode {
 
   bool IsLeaf() const { return shapesNum != 0; }
 
-  const std::vector<size_t> ShapesIdx() const {
+  const std::vector<size_t> PrimitiveIndices() const {
     assert(IsLeaf());
     std::vector<size_t> rst;
-    for (uint16_t i = 0; i < shapesNum; i++)
+    for (size_t i = 0; i < static_cast<size_t>(shapesNum); i++)
       rst.push_back(shapesOffset + i);
     return rst;
   }

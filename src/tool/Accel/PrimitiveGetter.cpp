@@ -4,20 +4,21 @@
 
 #include <MyScene/tool/Accel/detail/PrimitiveGetter.h>
 
-#include <MyScene/core/Primitive/Plane.h>
 #include <MyScene/core/Primitive/Sphere.h>
 #include <MyScene/core/Primitive/TriMesh.h>
 #include <MyScene/core/Primitive/Triangle.h>
+#include <UScene/core/Primitive/Square.h>
 
 using namespace My;
 
 detail::Accel_::PrimitiveGetter::PrimitiveGetter() {
-  Regist<Plane, Sphere, TriMesh>();
+  RegistC<Square, Sphere, TriMesh>();
 
-  Regist([this](Triangle* tri) { rst = tri->mesh; });
+  Regist([this](const Triangle* tri) { rst = tri->mesh; });
 }
 
-Primitive* detail::Accel_::PrimitiveGetter::Visit(Primitive* primitive) const {
+const Primitive* detail::Accel_::PrimitiveGetter::Visit(
+    const Primitive* primitive) const {
   RawPtrVisitor<PrimitiveGetter, Primitive>::Visit(primitive);
   return rst;
 }

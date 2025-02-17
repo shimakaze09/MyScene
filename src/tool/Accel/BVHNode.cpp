@@ -9,8 +9,8 @@
 using namespace My;
 using namespace std;
 
-BVHNode::BVHNode(const unordered_map<Primitive*, bboxf3>& p2b,
-                 vector<Primitive*>& primitives, size_t primitiveOffset,
+BVHNode::BVHNode(const unordered_map<const Primitive*, bboxf3>& p2b,
+                 vector<const Primitive*>& primitives, size_t primitiveOffset,
                  size_t primitiveNum)
     : primitiveOffset(primitiveOffset), primitiveNum(primitiveNum) {
   Build(p2b, primitives);
@@ -21,8 +21,8 @@ BVHNode::~BVHNode() {
   delete r;
 }
 
-void BVHNode::Build(const unordered_map<Primitive*, bboxf3>& p2b,
-                    vector<Primitive*>& primitives) {
+void BVHNode::Build(const unordered_map<const Primitive*, bboxf3>& p2b,
+                    vector<const Primitive*>& primitives) {
   // Build bvh form primitiveOffset to primitiveOffset + primitiveNum
 
   constexpr size_t bucketNum = 12;
@@ -46,15 +46,15 @@ void BVHNode::Build(const unordered_map<Primitive*, bboxf3>& p2b,
   }
 
   // get best partition
-  vector<Primitive*> bestPartition[2];
+  vector<const Primitive*> bestPartition[2];
   double minCost = DBL_MAX;
   for (int dim = 0; dim < 3; dim++) {
 
     // 1. compute buckets
 
-    vector<vector<Primitive*>> buckets(bucketNum);
+    vector<vector<const Primitive*>> buckets(bucketNum);
     vector<bboxf3> boxesOfBuckets(bucketNum);
-    {  // 将 shape 放到 bucket 中，计算好每个 bucket 的 box
+    {
       double bucketLen = extentBox.diagonal()[dim] / bucketNum;
       if (bucketLen == 0)
         continue;

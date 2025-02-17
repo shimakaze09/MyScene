@@ -22,8 +22,8 @@ TriMesh::TriMesh(Type type) {
     case My::TriMesh::Type::Sphere:
       InitSphereMesh();
       break;
-    case My::TriMesh::Type::Plane:
-      InitPlaneMesh();
+    case My::TriMesh::Type::Square:
+      InitSquareMesh();
       break;
     default:
       break;
@@ -135,7 +135,7 @@ void TriMesh::InitSphereMesh() {
 }
 
 // center : (0, 0, 0), side length: 2s
-void TriMesh::InitPlaneMesh() {
+void TriMesh::InitSquareMesh() {
   vector<pointf3> positions = {pointf3{-1.f, 0.f, 1.f}, pointf3{1.f, 0.f, 1.f},
                                pointf3{1.f, 0.f, -1.f},
                                pointf3{-1.f, 0.f, -1.f}};

@@ -14,8 +14,8 @@ class Primitive;
 
 class BVHNode {
  public:
-  BVHNode(const std::unordered_map<Primitive*, bboxf3>& p2b,
-          std::vector<Primitive*>& primitives, size_t primitiveOffset,
+  BVHNode(const std::unordered_map<const Primitive*, bboxf3>& p2b,
+          std::vector<const Primitive*>& primitives, size_t primitiveOffset,
           size_t primitiveNum);
 
   ~BVHNode();
@@ -35,8 +35,8 @@ class BVHNode {
   BVHNode* GetR() const { return r; }
 
  private:
-  void Build(const std::unordered_map<Primitive*, bboxf3>& p2b,
-             std::vector<Primitive*>& primitives);
+  void Build(const std::unordered_map<const Primitive*, bboxf3>& p2b,
+             std::vector<const Primitive*>& primitives);
 
  private:
   bboxf3 box;
