@@ -9,5 +9,5 @@
 namespace My {
 // center : (0, 0, 0)
 // radius : 1
-struct Sphere : Primitive {};
+class Sphere : public Primitive {};
 }  // namespace My

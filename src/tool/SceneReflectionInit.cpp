@@ -91,6 +91,14 @@ void My::SceneReflectionInit() {
 
   Reflection<Sphere>::Instance().SetName("My::Sphere").RegistConstructor();
 
+  Reflection<Plane>::Instance().SetName("My::Plane").RegistConstructor();
+
+  Reflection<Triangle>::Instance()
+      .SetName("My::Triangle")
+      .Regist(&Triangle::mesh, "mesh")
+      .Regist(&Triangle::indices, "indices")
+      .RegistConstructor();
+
   Reflection<TriMesh>::Instance()
       .SetName("My::TriMesh")
       .Regist(&TriMesh::indices, "indices")

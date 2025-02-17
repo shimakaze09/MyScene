@@ -5,7 +5,8 @@
 #pragma once
 
 namespace My {
-struct Primitive {
+class Primitive {
+ public:
   virtual ~Primitive() = default;
 };
 }  // namespace My
