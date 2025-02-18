@@ -15,7 +15,6 @@ class Primitive;
 class Square;
 class Sphere;
 class Triangle;
-class TriMesh;
 
 class IntersectorClostest
     : public RawPtrVisitor<IntersectorClostest, Primitive> {

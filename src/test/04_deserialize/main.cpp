@@ -2,7 +2,7 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/ResourceMngr.h>
+#include <MyScene/core/Resource/ResourceMngr.h>
 #include <MyScene/tool/SceneReflectionInit.h>
 #include <MyScene/tool/serialize/DeserializerJSON.h>
 #include <MyScene/tool/serialize/SerializerJSON.h>

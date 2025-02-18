@@ -6,7 +6,7 @@
 
 #include "Material.h"
 
-#include "Image.h"
+#include "../Resource/Image.h"
 
 #include <MyGM/rgb.h>
 

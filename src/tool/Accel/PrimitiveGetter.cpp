@@ -7,7 +7,7 @@
 #include <MyScene/core/Primitive/Sphere.h>
 #include <MyScene/core/Primitive/TriMesh.h>
 #include <MyScene/core/Primitive/Triangle.h>
-#include <UScene/core/Primitive/Square.h>
+#include <MyScene/core/Primitive/Square.h>
 
 using namespace My;
 

@@ -77,6 +77,26 @@ void My::SceneReflectionInit() {
 
   Reflection<Light>::Instance().SetName("My::Light").RegistConstructor();
 
+  Reflection<AreaLight>::Instance()
+      .SetName("My::AreaLight")
+      .Regist(&AreaLight::intensity, "intensity")
+      .Regist(&AreaLight::color, "color")
+      .Regist(&AreaLight::texture, "texture")
+      .RegistConstructor();
+
+  Reflection<DirLight>::Instance()
+      .SetName("My::DirLight")
+      .Regist(&DirLight::intensity, "intensity")
+      .Regist(&DirLight::color, "color")
+      .RegistConstructor();
+
+  Reflection<EnvLight>::Instance()
+      .SetName("My::EnvLight")
+      .Regist(&EnvLight::intensity, "intensity")
+      .Regist(&EnvLight::color, "color")
+      .Regist(&EnvLight::texture, "texture")
+      .RegistConstructor();
+
   Reflection<PointLight>::Instance()
       .SetName("My::PointLight")
       .Regist(&PointLight::intensity, "intensity")
@@ -122,6 +142,8 @@ void My::SceneReflectionInit() {
       .Regist(&stdBRDF::metalness_texture, "metalness_texture")
       .Regist(&stdBRDF::normal_map, "normal_map")
       .RegistConstructor();
+
+  // =================== Resource ===================
 
   Reflection<Image>::Instance()
       .SetName("My::Image")

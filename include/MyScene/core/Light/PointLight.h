@@ -9,8 +9,8 @@
 #include <MyGM/rgb.h>
 
 namespace My {
+// point light's luminance : intensity * color * delta(A)
 struct PointLight : Light {
-  // point light's luminance : intensity * color * delta(A)
   float intensity;
   rgbf color;
 

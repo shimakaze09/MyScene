@@ -6,7 +6,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #endif  // WIN32
 
-#include <MyScene/core/Material/Image.h>
+#include <MyScene/core/Resource/Image.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <_deps/stb_image.h>

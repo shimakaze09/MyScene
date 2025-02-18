@@ -14,16 +14,20 @@
 #include "Cmpt/Material.h"
 #include "Cmpt/Transform.h"
 
+#include "Light/AreaLight.h"
+#include "Light/DirLight.h"
+#include "Light/EnvLight.h"
 #include "Light/Light.h"
 #include "Light/PointLight.h"
 
 #include "Material/Material.h"
 #include "Material/stdBRDF.h"
 
-#include "Material/Image.h"
-
-#include "Primitive/Square.h"
 #include "Primitive/Primitive.h"
 #include "Primitive/Sphere.h"
+#include "Primitive/Square.h"
 #include "Primitive/TriMesh.h"
 #include "Primitive/Triangle.h"
+
+#include "Resource/Image.h"
+#include "Resource/ResourceMngr.h"
