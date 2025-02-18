@@ -32,6 +32,7 @@ class Image {
 
   // png, bmp, tga, jpg, hdr
   bool Save();
+  // change path and save
   bool Save(const std::string& path);
   void Clear();
 

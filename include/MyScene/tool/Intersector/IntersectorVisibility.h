@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <MyDP/Visitor/MultiVisitor.h>
+#include <MyDP/Visitor/Visitor.h>
 
 #include <MyGM/ray.h>
 
@@ -17,14 +17,14 @@ class Triangle;
 class TriMesh;
 
 class IntersectorVisibility
-    : public RawPtrMultiVisitor<IntersectorVisibility, Primitive> {
+    : public RawPtrVisitor<IntersectorVisibility, Primitive> {
  public:
   IntersectorVisibility();
 
   bool Visit(const BVH* bvh, const rayf3& r) const;
 
  protected:
-  using RawPtrMultiVisitor<IntersectorVisibility, Primitive>::Visit;
+  using RawPtrVisitor<IntersectorVisibility, Primitive>::Visit;
   void ImplVisit(const Square* primitive);
   void ImplVisit(const Sphere* primitive);
   void ImplVisit(const Triangle* primitive);

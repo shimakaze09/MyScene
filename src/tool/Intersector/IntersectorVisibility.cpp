@@ -25,8 +25,8 @@ bool IntersectorVisibility::Visit(const BVH* bvh, const rayf3& _r) const {
   isIntersect = false;
 
   // backup
-  const pointf3 pnt = r.point();
-  const vecf3 dir = r.dir();
+  const pointf3 pnt = r.point;
+  const vecf3 dir = r.dir;
 
   const bool dirIsNeg[3] = {dir[0] < 0, dir[1] < 0, dir[2] < 0};
 
@@ -51,8 +51,8 @@ bool IntersectorVisibility::Visit(const BVH* bvh, const rayf3& _r) const {
           return false;
 
         // restore
-        r.point() = pnt;
-        r.dir() = dir;
+        r.point = pnt;
+        r.dir = dir;
       }
     } else {
       size_t firstChildIdx = LinearBVHNode::FirstChildIdx(nodeIdx);
