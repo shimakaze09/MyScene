@@ -191,13 +191,10 @@ int main() {
 
   Scene scene("scene");
 
-  auto [sobj0, tsfm0, camera] =
-      scene.CreateSObj<Cmpt::Transform, Cmpt::Camera>("sobj0");
+  auto [sobj0, tsfm0, camera] = scene.CreateSObj<Cmpt::Camera>("sobj0");
   auto [sobj1, tsfm1, geo, mat] =
-      scene.CreateSObj<Cmpt::Transform, Cmpt::Geometry, Cmpt::Material>(
-          "sobj1");
-  auto [sobj2, tsfm2, light] =
-      scene.CreateSObj<Cmpt::Transform, Cmpt::Light>("sobj2");
+      scene.CreateSObj<Cmpt::Geometry, Cmpt::Material>("sobj1");
+  auto [sobj2, tsfm2, light] = scene.CreateSObj<Cmpt::Light>("sobj2");
 
   geo->SetPrimitive(new Sphere);
   mat->SetMaterial(new stdBRDF{1.f});

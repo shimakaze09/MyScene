@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../Component.h"
+#include "detail/SystemMngr.h"
 
 namespace My {
 template <typename Cmpt>
@@ -19,6 +20,17 @@ const Cmpt* SObj::Get() const {
   return const_cast<SObj*>(this)->Get<Cmpt>();
 }
 
+template <typename... Cmpts>
+std::tuple<Cmpts*...> SObj::Attach() {
+  static_assert((std::is_base_of_v<Component, Cmpts> && ...));
+  static_assert(((!std::is_same_v<Cmpt::Transform, Cmpts>) && ...),
+                "Cmpt::Transform is already attached");
+  auto cmpts = entity->Attach<Cmpts...>();
+  (SystemMngr::Instance().Regist<Cmpts>(), ...);
+  ((std::get<Cmpts*>(cmpts)->sobj = this), ...);
+  return cmpts;
+}
+
 template <typename Cmpt>
 Cmpt* SObj::GetOrAttach() {
   auto cmpt = Get<Cmpt>();
@@ -30,16 +42,10 @@ Cmpt* SObj::GetOrAttach() {
 }
 
 template <typename... Cmpts>
-std::tuple<Cmpts*...> SObj::Attach() {
-  static_assert((std::is_base_of_v<Component, Cmpts> && ...));
-  auto cmpts = entity->Attach<Cmpts...>();
-  ((std::get<Cmpts*>(cmpts)->sobj = this), ...);
-  return cmpts;
-}
-
-template <typename... Cmpts>
 void SObj::Detach() {
   static_assert((std::is_base_of_v<Component, Cmpts> && ...));
+  static_assert(((!std::is_same_v<Cmpt::Transform, Cmpts>) && ...),
+                "Cmpt::Transform can be detached");
   entity->Detach<Cmpts...>();
 }
 }  // namespace My

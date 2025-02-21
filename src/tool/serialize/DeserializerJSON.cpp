@@ -158,7 +158,7 @@ void DeserializerJSON::ParseSObj(Scene* scene, SObj* sobj,
   }
 
   for (const auto& childObj : (**value)["children"].GetArray()) {
-    auto [child] = scene->CreateSObj(childObj["name"].GetString(), sobj);
+    auto [child, tsfm] = scene->CreateSObj(childObj["name"].GetString(), sobj);
     auto val = MyJsonValue(&childObj);
     ParseSObj(scene, child, &val);
   }

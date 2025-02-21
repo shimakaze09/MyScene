@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Cmpt/Transform.h"
+
 #include <MyECS/Entity.h>
 
 #include <MyGM/transform.h>
@@ -40,6 +42,7 @@ class SObj {
   template <typename... Cmpts>
   std::tuple<Cmpts*...> Attach();
 
+  // not run in Scene.Each
   template <typename Cmpt>
   Cmpt* GetOrAttach();
 
@@ -51,9 +54,10 @@ class SObj {
  protected:
   SObj() : entity{nullptr} {}
 
-  SObj(Entity* entity, const std::string& name);
+  SObj(Scene* scene, Entity* entity, const std::string& name);
   virtual ~SObj();
   Entity* entity;
+  Scene* scene;
   friend class Scene;
 };
 }  // namespace My
