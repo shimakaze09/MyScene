@@ -5,7 +5,6 @@
 #pragma once
 
 #include "../Component.h"
-#include "detail/SystemMngr.h"
 
 namespace My {
 template <typename Cmpt>
@@ -26,7 +25,6 @@ std::tuple<Cmpts*...> SObj::Attach() {
   static_assert(((!std::is_same_v<Cmpt::Transform, Cmpts>) && ...),
                 "Cmpt::Transform is already attached");
   auto cmpts = entity->Attach<Cmpts...>();
-  (SystemMngr::Instance().Regist<Cmpts>(), ...);
   ((std::get<Cmpts*>(cmpts)->sobj = this), ...);
   return cmpts;
 }

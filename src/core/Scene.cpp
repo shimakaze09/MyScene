@@ -13,7 +13,3 @@ Scene::Scene(const std::string& name)
 Scene::~Scene() {
   delete root;
 }
-
-void Scene::Update() {
-  SystemMngr::Instance().Update(this);
-}

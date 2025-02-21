@@ -62,21 +62,20 @@ ENDIF ()
 
 # stb_image
 MESSAGE(STATUS "----------")
-IF(EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h"
+IF (EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h"
         AND EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image_write.h")
     MESSAGE(STATUS "found stb_image.h and stb_image_write.h")
-ELSE()
+ELSE ()
     MESSAGE(FATAL_ERROR "not found stb_image.h or stb_image_write.h in include/_deps/\n"
             "read setup.md for more detail")
-endif()
+ENDIF ()
 
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
 ADD_DEP(MyDP 0.3.0)
-ADD_DEP(MyECS 0.4.0)
+ADD_DEP(MyECS 0.5.0)
 ADD_DEP(MyGM 0.4.0)
-ADD_DEP(MyTemplate 0.3.0)
 
 ADD_SUB_DIRS(src)
 

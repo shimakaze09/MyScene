@@ -6,8 +6,6 @@
 
 #include "../Component.h"
 
-#include "SystemMngr.h"
-
 namespace My {
 template <typename... Cmpts>
 std::tuple<SObj*, Cmpt::Transform*, Cmpts*...> Scene::CreateSObj(
@@ -22,8 +20,6 @@ std::tuple<SObj*, Cmpt::Transform*, Cmpts*...> Scene::CreateSObj(
   ((std::get<Cmpts*>(rst)->sobj = sobj), ...);
 
   (parent ? parent : root.get())->AddChild(sobj);
-
-  (SystemMngr::Instance().Regist<Cmpts>(), ...);
 
   return {sobj, std::get<Cmpt::Transform*>(rst), std::get<Cmpts*>(rst)...};
 }
