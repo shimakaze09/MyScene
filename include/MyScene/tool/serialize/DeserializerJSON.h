@@ -8,7 +8,6 @@
 
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
-#include <rapidjson/document.h>
 
 #include <MyGM/MyGM>
 
@@ -17,6 +16,9 @@
 #include <string>
 
 namespace My {
+class MyJsonValue;
+class MyJsonDoc;
+
 class DeserializerJSON : public IDeserializer,
                          public VarPtrVisitor<DeserializerJSON> {
  public:
@@ -25,27 +27,12 @@ class DeserializerJSON : public IDeserializer,
   virtual Scene* DeserializeScene(const std::string& json) override;
   virtual SObj* DeserializeSObj(const std::string& json) override;
 
-  template <typename Func>
-  void RegistParseObj(Func&& func) {
-    using T = std::remove_pointer_t<FuncTraits_Ret<Func>>;
-    type2func[Reflection<T>::Instance().GetName()] =
-        [func =
-             std::forward<Func>(func)](const rapidjson::Value* cur) -> void* {
-      return reinterpret_cast<void*>(func(cur));
-    };
-  }
-
  protected:
-  template <typename T>
-  void DeserializeArray(T& arr, const rapidjson::Value& value);
-
   template <typename T>
   void ImplVisit(T*& obj);
 
   template <typename T>
-  void ImplVisit(T& property) {
-    Set(property, *cur);
-  }
+  void ImplVisit(T& property);
 
   template <typename T, size_t N>
   void ImplVisit(val<T, N>& val);
@@ -82,34 +69,20 @@ class DeserializerJSON : public IDeserializer,
 
   void ImplVisit(std::string& val);
 
-  void Set(bool& property, const rapidjson::Value& value);
-  void Set(float& property, const rapidjson::Value& value);
-  void Set(double& property, const rapidjson::Value& value);
-  void Set(int8_t& property, const rapidjson::Value& value);
-  void Set(int16_t& property, const rapidjson::Value& value);
-  void Set(int32_t& property, const rapidjson::Value& value);
-  void Set(int64_t& property, const rapidjson::Value& value);
-  void Set(uint8_t& property, const rapidjson::Value& value);
-  void Set(uint16_t& property, const rapidjson::Value& value);
-  void Set(uint32_t& property, const rapidjson::Value& value);
-  void Set(uint64_t& property, const rapidjson::Value& value);
-  template <typename T>  // array
-  void Set(T& property, const rapidjson::Value& value);
-  template <typename T>
-  void Set(std::vector<T>& property, const rapidjson::Value& value);
-
  private:
-  Scene* ParseScene(const rapidjson::Document& doc);
-  void ParseSObj(Scene* scene, SObj* sobj, const rapidjson::Value& value);
-  void* ParseObj(const rapidjson::Value& value);
-  void ParseObj(void* obj, const rapidjson::Value& value);
+  Scene* ParseScene(const MyJsonDoc* doc);
+  void ParseSObj(Scene* scene, SObj* sobj, const MyJsonValue* value);
+  void* ParseObj(const MyJsonValue* value);
+  void ParseObj(void* obj, const MyJsonValue* value);
 
   // for visitor
-  const rapidjson::Value* cur{nullptr};
+  const MyJsonValue* cur{nullptr};
   void* rstObj{nullptr};
 
+  template <typename Func>
+  void RegistParseObj(Func&& func);
+
   // dynamic
-  std::map<std::string, std::function<void*(const rapidjson::Value* cur)>>
-      type2func;
+  std::map<std::string, std::function<void*(const MyJsonValue* cur)>> type2func;
 };
 }  // namespace My

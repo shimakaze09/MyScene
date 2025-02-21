@@ -3,17 +3,12 @@ GLOBAL_GROUP_SOURCES(RST SOURCES PATHS
         "${PROJECT_SOURCE_DIR}/include/MyScene/core"
 )
 
-TO_PACKAGE_NAME(GM_PACKAGE_NAME MyGM 0.3.0)
-TO_PACKAGE_NAME(ECS_PACKAGE_NAME MyECS 0.3.3)
-TO_PACKAGE_NAME(DP_PACKAGE_NAME MyDP 0.2.7)
-TO_PACKAGE_NAME(TEMPLATE_PACKAGE_NAME MyTemplate 0.2.0)
-
-ADD_TARGET(MODE "LIB"
-        SOURCES ${sources}
+ADD_TARGET_GDR(MODE "LIB"
+        SOURCES ${SOURCES}
         INTERFACE_INC ON
-        LIBS
-        "My::${GM_PACKAGE_NAME}_core"
-        "My::${ECS_PACKAGE_NAME}_core"
-        "My::${DP_PACKAGE_NAME}_core"
-        "My::${TEMPLATE_PACKAGE_NAME}_core"
+        PUBLIC_GLIBS
+        "My::MyGM_core"
+        "My::MyECS_core"
+        "My::MyDP_core"
+        "My::MyTemplate_core"
 )

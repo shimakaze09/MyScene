@@ -4,14 +4,13 @@
 
 #include <MyScene/tool/serialize/ISerializer.h>
 
+#include "MyJsonWriter.h"
+
 #include <MyGM/MyGM>
 #include <MyScene/core/core>
 
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
-
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
 
 namespace My {
 class SerializerJSON : public ISerializer,
@@ -19,28 +18,21 @@ class SerializerJSON : public ISerializer,
  public:
   SerializerJSON();
 
-  using VarPtrVisitor<SerializerJSON>::Regist;
-  using ReflTraitsVisitor::Visit;
-
   virtual std::string Serialize(const Scene* scene) override;
   virtual std::string Serialize(const SObj* sobj) override;
 
+  // argument must be (My::MyJsonWriter&, const Obj*)
   template <typename Func>
   void RegistSerializeOtherMember(Func&& func);
 
-  rapidjson::Writer<rapidjson::StringBuffer>& GetWriter() { return writer; }
+  template <typename Obj>
+  void RegistObjPtrMemVar();
 
  protected:
-  template <typename T>
-  void SerializeObj(const T* p);
+  void SerializeOtherMember(const void* obj);
 
   template <typename T>
-  void SerializeOtherMember(const T* p);
-
-  template <typename T>
-  void ImplVisit(T* const& obj) {
-    SerializeObj(obj);
-  }
+  void ImplVisit(T* const& obj);
 
   template <typename T>
   void ImplVisit(const std::set<T>& p);
@@ -101,14 +93,16 @@ class SerializerJSON : public ISerializer,
 
  private:
   virtual void Receive(
-      const std::string& name,
+      const void* obj, const std::string& name,
       const std::map<std::string, std::shared_ptr<const VarPtrBase>>& nv)
       override;
 
  private:
-  rapidjson::StringBuffer buffer;
-  rapidjson::Writer<rapidjson::StringBuffer> writer;
-  std::map<size_t, std::function<void(const void*)>> callbacks;
+  MyJsonWriter writer;
+  std::map<const void*, std::function<void(const void*)>>
+      callbacks;  // key is vtable
+  using ReflTraitsVisitor::Visit;
+  using VarPtrVisitor<SerializerJSON>::RegistC;
 };
 }  // namespace My
 
