@@ -4,18 +4,10 @@
 
 #pragma once
 
-#include <MyDP/Basic/Read.h>
-
 namespace My {
-class SObj;
-
-class Component {
- public:
-  Read<SObj, SObj*> sobj{nullptr};
-
+// vtable is typeid
+struct Component {
  protected:
-  Component() = default;
   virtual ~Component() = default;
-
 };
 }  // namespace My

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../Component.h"
+#include "Component.h"
 
 #include "../Light/Light.h"
 
@@ -24,9 +24,6 @@ class Light : public Component {
 
   virtual ~Light() { delete light; }
 
-  Light(Light&& light) noexcept : Component(light) {
-    this->light = light.light;
-    light.light = nullptr;
-  }
+  Light(Light&& light) noexcept : light{light.light} { light.light = nullptr; }
 };
 }  // namespace My::Cmpt

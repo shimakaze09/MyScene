@@ -12,7 +12,7 @@ using namespace My;
 
 void My::SceneReflectionInit() {
   Scene s("tmp");
-  auto [sobj, tsfm] = s.CreateSObj<>("tmp");
+  auto [sobj] = s.CreateSObj<>("tmp");
 
   vtable_of<SObj>::regist(sobj);
 
@@ -28,7 +28,35 @@ void My::SceneReflectionInit() {
 
   // =================== Component ===================
 
-  Reflection<Component>::Instance().SetName("My::Component");
+  Reflection<Cmpt::SObjPtr>::Instance()
+      .SetName("My::Cmpt::SObjPtr")
+      .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::SObjPtr>(); });
+
+  Reflection<Cmpt::Position>::Instance()
+      .SetName("My::Cmpt::Position")
+      .Regist(&Cmpt::Position::value, "value")
+      .RegistConstructor(
+          [](SObj* sobj) { return sobj->Get<Cmpt::Position>(); });
+
+  Reflection<Cmpt::Rotation>::Instance()
+      .SetName("My::Cmpt::Rotation")
+      .Regist(&Cmpt::Rotation::value, "value")
+      .RegistConstructor(
+          [](SObj* sobj) { return sobj->Get<Cmpt::Rotation>(); });
+
+  Reflection<Cmpt::Scale>::Instance()
+      .SetName("My::Cmpt::Scale")
+      .Regist(&Cmpt::Scale::value, "value")
+      .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::Scale>(); });
+
+  Reflection<Cmpt::Transform>::Instance()
+      .SetName("My::Cmpt::Transform")
+      .RegistConstructor(
+          [](SObj* sobj) { return sobj->Get<Cmpt::Transform>(); });
+
+  Reflection<Cmpt::L2W>::Instance()
+      .SetName("My::Cmpt::L2W")
+      .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::L2W>(); });
 
   Reflection<Cmpt::Camera>::Instance()
       .SetName("My::Cmpt::Camera")
@@ -62,14 +90,6 @@ void My::SceneReflectionInit() {
         auto [cmpt] = sobj->Attach<Cmpt::Material>();
         return cmpt;
       });
-
-  Reflection<Cmpt::Transform>::Instance()
-      .SetName("My::Cmpt::Transform")
-      .Regist(&Cmpt::Transform::pos, "pos")
-      .Regist(&Cmpt::Transform::scale, "scale")
-      .Regist(&Cmpt::Transform::rot, "rot")
-      .RegistConstructor(
-          [](SObj* sobj) { return sobj->Get<Cmpt::Transform>(); });
 
   // =================== Light ===================
 

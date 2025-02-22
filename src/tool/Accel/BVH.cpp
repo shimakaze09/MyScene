@@ -12,6 +12,7 @@
 #include <MyScene/core/Primitive/Triangle.h>
 
 #include <MyScene/core/Cmpt/Geometry.h>
+#include <MyScene/core/Cmpt/SObjPtr.h>
 #include <MyScene/core/Cmpt/Transform.h>
 
 #include <MyScene/core/SObj.h>
@@ -33,6 +34,8 @@ class BVH::BVHInitializer
 
   virtual ~BVHInitializer() = default;
 
+  SObj* sobj;
+
  public:
   unordered_map<const Primitive*, bboxf3> p2b;
 
@@ -44,11 +47,11 @@ class BVH::BVHInitializer
     if (!primitive)
       return;
 
-    auto l2w = geo->sobj->Get<Cmpt::Transform>()->LocalToWorldMatrix();
+    auto l2w = sobj->Get<Cmpt::L2W>()->value;
     holder->p2lw[primitive] = l2w;
-    holder->p2wl[primitive] = l2w.inverse();
+    holder->p2wl[primitive] = l2w->inverse();
 
-    holder->p2sobj[geo->primitive] = geo->sobj.get();
+    holder->p2sobj[geo->primitive] = sobj;
     Visit(geo->primitive);
   }
 
@@ -137,7 +140,10 @@ void BVH::Clear() {
 void BVH::Init(Scene* scene) {
   Clear();
   BVHInitializer initializer(this);
-  scene->Each([&initializer](Cmpt::Geometry* geo) { initializer.Visit(geo); });
+  scene->Each([&initializer](Cmpt::Geometry* geo, Cmpt::SObjPtr* ptr) {
+    initializer.sobj = ptr->sobj;
+    initializer.Visit(geo);
+  });
 
   BVHNode bvhRoot(initializer.p2b, primitives, 0, primitives.size());
   LinearizeBVH(&bvhRoot);

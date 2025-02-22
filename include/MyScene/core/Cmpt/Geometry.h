@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../Component.h"
+#include "Component.h"
 
 #include "../Primitive/Primitive.h"
 
@@ -25,8 +25,7 @@ class Geometry : public Component {
 
   virtual ~Geometry() { delete primitive; }
 
-  Geometry(Geometry&& geo) noexcept : Component(geo) {
-    primitive = geo.primitive;
+  Geometry(Geometry&& geo) noexcept : primitive{geo.primitive} {
     geo.primitive = nullptr;
   }
 };

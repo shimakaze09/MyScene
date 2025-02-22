@@ -4,26 +4,21 @@
 
 #pragma once
 
-#include "Primitive.h"
+#include "Component.h"
 
-#include <MyGM/val.h>
+#include <MyGM/transform.h>
 
-namespace My {
-class TriMesh;
+#include <MyDP/Basic/Read.h>
 
-class Triangle : public Primitive {
+namespace My::Cmpt {
+struct Position;
+struct Rotation;
+struct Scale;
+
+class Transform : public Component {
  public:
-  TriMesh* mesh{nullptr};
-  valu3 indices;
+  Read<Transform, transformf> value{transformf::eye()};
 
-  Triangle() = default;
-
-  Triangle(TriMesh* mesh, const valu3& indices)
-      : mesh{mesh}, indices{indices} {}
-
-  const pointf2 lerpUV(float w, float u, float v) const;
-		const pointf3 lerpPosition(float w, float u, float v) const;
-		const normalf lerpNormal(float w, float u, float v) const;
-		const vecf3 lerpTangent(float w, float u, float v) const;
+  void OnUpdate(const Position* p, const Rotation* r, const Scale* s);
 };
-}  // namespace My
+}  // namespace My::Cmpt

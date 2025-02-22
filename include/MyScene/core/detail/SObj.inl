@@ -4,7 +4,20 @@
 
 #pragma once
 
-#include "../Component.h"
+#include "../Cmpt/L2W.h"
+#include "../Cmpt/Position.h"
+#include "../Cmpt/Rotation.h"
+#include "../Cmpt/SObjPtr.h"
+#include "../Cmpt/Scale.h"
+#include "../Cmpt/Transform.h"
+
+namespace My::detail::SObj_ {
+template <typename T>
+constexpr bool IsNecessaryCmpt =
+    std::is_same_v<Cmpt::Position, T> || std::is_same_v<Cmpt::Rotation, T> ||
+    std::is_same_v<Cmpt::Scale, T> || std::is_same_v<Cmpt::SObjPtr, T> ||
+    std::is_same_v<Cmpt::Transform, T> || std::is_same_v<Cmpt::L2W, T>;
+}
 
 namespace My {
 template <typename Cmpt>
@@ -22,8 +35,8 @@ const Cmpt* SObj::Get() const {
 template <typename... Cmpts>
 std::tuple<Cmpts*...> SObj::Attach() {
   static_assert((std::is_base_of_v<Component, Cmpts> && ...));
-  static_assert(((!std::is_same_v<Cmpt::Transform, Cmpts>) && ...),
-                "Cmpt::Transform is already attached");
+  static_assert(((!detail::SObj_::IsNecessaryCmpt<Cmpts>) && ...),
+                "<Cmpts> is necessary component");
   auto cmpts = entity->Attach<Cmpts...>();
   ((std::get<Cmpts*>(cmpts)->sobj = this), ...);
   return cmpts;
@@ -42,8 +55,21 @@ Cmpt* SObj::GetOrAttach() {
 template <typename... Cmpts>
 void SObj::Detach() {
   static_assert((std::is_base_of_v<Component, Cmpts> && ...));
-  static_assert(((!std::is_same_v<Cmpt::Transform, Cmpts>) && ...),
-                "Cmpt::Transform can be detached");
+  static_assert(((!detail::SObj_::IsNecessaryCmpt<Cmpts>) && ...),
+                "<Cmpts> is necessary component");
   entity->Detach<Cmpts...>();
+}
+
+template <typename Cmpt>
+SObj* SObj::GetSObjInTreeWith() {
+  auto cmpt = Get<Cmpt>();
+  if (cmpt)
+    return this;
+  for (auto child : children) {
+    auto sobj = child->GetSObjInTreeWith<Cmpt>();
+    if (sobj)
+      return sobj;
+  }
+  return nullptr;
 }
 }  // namespace My
