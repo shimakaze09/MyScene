@@ -4,9 +4,8 @@
 
 #include <MyScene/tool/serialize/MyJsonWriter.h>
 
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
-
+#include "../_deps/rapidjson/stringbuffer.h"
+#include "../_deps/rapidjson/writer.h"
 
 using namespace My;
 using namespace std;

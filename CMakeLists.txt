@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20 FATAL_ERROR)
 
 # Set the project
-PROJECT(MyScene VERSION 0.4.0 LANGUAGES CXX)
+PROJECT(MyScene VERSION 0.4.1 LANGUAGES CXX)
 MESSAGE(STATUS "Project: ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 # Add 'd' postfix for debug builds
@@ -33,50 +33,32 @@ SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 # Add CMake modules
 INCLUDE(FETCHCONTENT)
 
-MESSAGE(STATUS "Looking for: MyCMake v0.4.0")
-FIND_PACKAGE(MyCMake 0.4.0 QUIET)
+MESSAGE(STATUS "Looking for: MyCMake v0.4.1")
+FIND_PACKAGE(MyCMake 0.4.1 QUIET)
 IF (${MyCMake_FOUND})
     MESSAGE(STATUS "MyCMake v${PACKAGE_VERSION} found")
 ELSE ()
     SET(ADDRESS "https://github.com/shimakaze09/MyCMake.git")
-    MESSAGE(STATUS "MyCMake v0.4.0 not found\n"
-            "fetch from ${ADDRESS} with tag v0.4.0")
+    MESSAGE(STATUS "MyCMake v0.4.1 not found\n"
+            "fetch from ${ADDRESS} with tag v0.4.1")
     FETCHCONTENT_DECLARE(
             MyCMake
             GIT_REPOSITORY ${ADDRESS}
-            GIT_TAG "v0.4.0"
+            GIT_TAG "v0.4.1"
     )
-    message(STATUS "Building MyCMake v0.4.0")
+    message(STATUS "Building MyCMake v0.4.1")
     FETCHCONTENT_MAKEAVAILABLE(MyCMake)
-    MESSAGE(STATUS "MyCMake v0.4.0 built")
-ENDIF ()
-
-# Find RapidJSON
-MESSAGE(STATUS "Find package: RapidJSON")
-FIND_PACKAGE(RapidJSON)
-IF (${RapidJSON_FOUND})
-    MESSAGE(STATUS "RapidJSON found")
-ELSE ()
-    MESSAGE(STATUS "RapidJSON not found")
-ENDIF ()
-
-# stb_image
-MESSAGE(STATUS "----------")
-IF (EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h"
-        AND EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image_write.h")
-    MESSAGE(STATUS "found stb_image.h and stb_image_write.h")
-ELSE ()
-    MESSAGE(FATAL_ERROR "not found stb_image.h or stb_image_write.h in include/_deps/\n"
-            "read setup.md for more detail")
+    MESSAGE(STATUS "MyCMake v0.4.1 built")
 ENDIF ()
 
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
-ADD_DEP(MyDP 0.3.0)
-ADD_DEP(MyECS 0.5.0)
-ADD_DEP(MyGM 0.4.0)
+ADD_DEP(MyDP 0.3.1)
+ADD_DEP(MyECS 0.5.1)
+ADD_DEP(MyGM 0.4.1)
 
+ADD_SUB_DIRS(include)
 ADD_SUB_DIRS(src)
 
 EXPORT_TARGETS(DIRECTORIES "include/MyScene")
