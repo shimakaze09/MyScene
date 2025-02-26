@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20 FATAL_ERROR)
 
 # Set the project
-PROJECT(MyScene VERSION 0.4.1 LANGUAGES CXX)
+PROJECT(MyScene VERSION 0.4.3 LANGUAGES CXX)
 MESSAGE(STATUS "Project: ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 # Add 'd' postfix for debug builds
@@ -54,9 +54,7 @@ ENDIF ()
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
-ADD_DEP(MyDP 0.3.1)
 ADD_DEP(MyECS 0.5.1)
-ADD_DEP(MyGM 0.4.1)
 
 ADD_SUB_DIRS(include)
 ADD_SUB_DIRS(src)

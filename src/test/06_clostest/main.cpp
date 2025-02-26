@@ -4,7 +4,7 @@
 
 #include <MyScene/tool/Accel/BVH.h>
 #include <MyScene/tool/Intersector/IntersectorClostest.h>
-#include <MyScene/core/core>
+#include <MyScene/core.h>
 
 #include <fstream>
 #include <iostream>

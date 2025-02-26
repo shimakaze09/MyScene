@@ -4,5 +4,5 @@
 
 #pragma once
 
-#include "core/core"
-#include "tool/tool"
+#include "core.h"
+#include "tool.h"

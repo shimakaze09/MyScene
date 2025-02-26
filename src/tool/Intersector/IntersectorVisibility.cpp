@@ -5,7 +5,7 @@
 #include <MyScene/tool/Intersector/IntersectorVisibility.h>
 
 #include <MyScene/tool/Accel/BVH.h>
-#include <MyScene/core/core>
+#include <MyScene/core.h>
 
 #include <MyGM/MyGM>
 

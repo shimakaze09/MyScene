@@ -4,8 +4,11 @@
 
 #include <MyScene/tool/Intersector/IntersectorClostest.h>
 
+#include <MyScene/core/Primitive/Sphere.h>
+#include <MyScene/core/Primitive/Square.h>
+#include <MyScene/core/Primitive/TriMesh.h>
+#include <MyScene/core/Primitive/Triangle.h>
 #include <MyScene/tool/Accel/BVH.h>
-#include <MyScene/core/core>
 
 #include <MyGM/MyGM>
 

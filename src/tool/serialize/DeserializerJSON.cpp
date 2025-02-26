@@ -4,12 +4,15 @@
 
 #include <MyScene/tool/serialize/DeserializerJSON.h>
 
-#include <MyScene/core/core>
+#include <MyScene/core/Light/Light.h>
+#include <MyScene/core/Material/Material.h>
+#include <MyScene/core/Material/Texture2D.h>
+#include <MyScene/core/Primitive/Primitive.h>
+#include <MyScene/core/SObj.h>
+#include <MyScene/core/Scene.h>
 
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/ReflectionMngr.h>
-
-#include <MyScene/core/Resource/ResourceMngr.h>
 
 #include "../_deps/rapidjson/document.h"
 #include "../_deps/rapidjson/error/en.h"
@@ -64,7 +67,7 @@ class My::MyJsonDoc {
 };
 
 template <typename Func>
-void DeserializerJSON::RegistParseObj(Func&& func) {
+void DeserializerJSON::RegistGenObj(Func&& func) {
   using T = std::remove_pointer_t<FuncTraits_Ret<Func>>;
   type2func[Reflection<T>::Instance().GetName()] =
       [func = std::forward<Func>(func)](const MyJsonValue* cur) -> void* {
@@ -91,16 +94,16 @@ DeserializerJSON::DeserializerJSON() {
 
          Primitive*, Light*, Material*,
 
-         Image*, string,
+         Texture2D*, string,
 
          SObj*,
 
          vector<pointf3>, vector<pointf2>, vector<normalf>, vector<vecf3>,
          vector<valu3>>();
 
-  RegistParseObj([](const rapidjson::Value* cur) {
-    string path = cur->FindMember("path")->value.GetString();
-    return ResourceMngr<Image>::Instance().GetOrCreate(path, path);
+  RegistGenObj([](const rapidjson::Value* obj) {
+    string path = obj->FindMember("path")->value.GetString();
+    return new Texture2D{path};
   });
 }
 
@@ -175,11 +178,13 @@ void* DeserializerJSON::ParseObj(const MyJsonValue* value) {
   }
 
   const Value& name = (**value)["type"];
+  void* obj;
   auto target = type2func.find(string{name.GetString()});
   if (target != type2func.end())
-    return target->second(cur);
+    obj = target->second(cur);
+  else
+    obj = ReflectionMngr::Instance().Create(name.GetString());
 
-  void* obj = ReflectionMngr::Instance().Create(name.GetString());
   if (!obj) {
     cerr << "ERROR::DeserializerJSON::ParseObj:" << endl
          << "\t" << "create" << name.GetString() << "fail" << endl;

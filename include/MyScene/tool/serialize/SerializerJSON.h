@@ -7,12 +7,16 @@
 #include "MyJsonWriter.h"
 
 #include <MyGM/MyGM>
-#include <MyScene/core/core>
 
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
 
+#include <set>
+
 namespace My {
+class Scene;
+class SObj;
+
 class SerializerJSON : public ISerializer,
                        public VarPtrVisitor<SerializerJSON> {
  public:

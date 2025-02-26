@@ -4,6 +4,13 @@
 
 #include <MyScene/tool/serialize/SerializerJSON.h>
 
+#include <MyScene/core/Light/Light.h>
+#include <MyScene/core/Material/Material.h>
+#include <MyScene/core/Material/Texture2D.h>
+#include <MyScene/core/Primitive/Primitive.h>
+#include <MyScene/core/SObj.h>
+#include <MyScene/core/Scene.h>
+
 using namespace std;
 using namespace My;
 
@@ -33,7 +40,7 @@ SerializerJSON::SerializerJSON() {
 
       Primitive*, Light*, Material*,
 
-      Image*,
+      Texture2D*,
 
       string, set<SObj*>, vector<pointf3>, vector<pointf2>, vector<normalf>,
       vector<vecf3>, vector<valu3>>();

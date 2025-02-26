@@ -3,7 +3,7 @@
 //
 
 #include <MyScene/tool/SceneReflectionInit.h>
-#include <MyScene/core/core>
+#include <MyScene/core.h>
 
 #include <MyDP/Reflection/MemVarVisitor.h>
 #include <MyDP/Reflection/Reflection.h>
@@ -21,7 +21,7 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
   VarSerializer() {
     VarPtrVisitor<VarSerializer>::RegistC<
         float, string, set<SObj*>, SObj*, vecf3, rgbf, pointf3, quatf, scalef3,
-        Primitive*, Light*, Material*, Image*>();
+        Primitive*, Light*, Material*, Texture2D*>();
   }
 
   using VarPtrVisitor<VarSerializer>::Regist;
