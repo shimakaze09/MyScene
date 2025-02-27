@@ -2,7 +2,7 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/serialize/SerializerJSON.h>
+#include <MyScene/tool/Serializer/SerializerJSON.h>
 
 #include <MyScene/core/Light/Light.h>
 #include <MyScene/core/Material/Material.h>
@@ -73,13 +73,17 @@ string SerializerJSON::Serialize(const SObj* sobj) {
 }
 
 void SerializerJSON::Receive(
-    const void* obj, const string& name,
-    const map<string, shared_ptr<const VarPtrBase>>& nv) {
+    const void* obj, string_view name,
+    const xMap<string, shared_ptr<const VarPtrBase>>& nv) {
   writer.StartObject();
   writer.Key("type");
-  writer.String(name.c_str());
+  writer.String(name.data());
 
   for (auto [n, v] : nv) {
+    if (ReflectionMngr::Instance().GetReflction(obj)->Meta(
+            n + "::" + Component::Meta::not_serialize) ==
+        Component::Meta::not_serialize_value)
+      continue;
     writer.Key(n.c_str());
     VarPtrVisitor<SerializerJSON>::Visit(v);  // serialize variable
   }

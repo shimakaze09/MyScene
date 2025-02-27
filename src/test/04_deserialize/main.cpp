@@ -4,8 +4,8 @@
 
 #include <MyScene/core/Resource/ResourceMngr.h>
 #include <MyScene/tool/SceneReflectionInit.h>
-#include <MyScene/tool/serialize/DeserializerJSON.h>
-#include <MyScene/tool/serialize/SerializerJSON.h>
+#include <MyScene/tool/Serializer/DeserializerJSON.h>
+#include <MyScene/tool/Serializer/SerializerJSON.h>
 #include <MyScene/core/core>
 
 #include <fstream>
@@ -31,6 +31,9 @@ int main() {
   light->SetLight(new PointLight{1.f, 1.f});
   geo1->SetPrimitive(new TriMesh(TriMesh::Type::Cube));
 
+  scene.Start();
+  scene.Update();
+
   string path = "../data/tex_square.png";
   brdf->albedo_texture =
       ResourceMngr<Image>::Instance().GetOrCreate(path, path);
@@ -41,6 +44,8 @@ int main() {
   auto rst = serializer->Serialize(&scene);
   auto rstScene = deserializer->DeserializeScene(rst);
   rst = serializer->Serialize(rstScene);
+
+  scene.Stop();
 
   ofstream ofs;
   string filename = "../data/test_04_output.myscene";

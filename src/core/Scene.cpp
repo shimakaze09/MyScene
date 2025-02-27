@@ -12,7 +12,8 @@ Scene::Scene(const std::string& name)
           this,
           get<Entity*>(
               World::CreateEntity<Cmpt::SObjPtr, Cmpt::Position, Cmpt::Rotation,
-                                  Cmpt::Scale, Cmpt::Transform, Cmpt::L2W>()),
+                                  Cmpt::Scale, Cmpt::Transform, Cmpt::L2W,
+                                  Cmpt::Root>()),
           name)} {
   root->Get<Cmpt::SObjPtr>()->sobj.val = root;
 }

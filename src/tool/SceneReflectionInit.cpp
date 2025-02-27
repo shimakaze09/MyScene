@@ -18,49 +18,52 @@ void My::SceneReflectionInit() {
   vtable_of<SObj>::regist(sobj);
 
   Reflection<SObj>::Instance()
-      .SetName("My::SObj")
       .Regist(&SObj::name, "name")
       .Regist(&SObj::children, "children");
 
   Reflection<Scene>::Instance()
-      .SetName("My::Scene")
       .Regist(&Scene::root, "root")
       .RegistConstructor();
 
   // =================== Component ===================
 
   Reflection<Cmpt::SObjPtr>::Instance()
-      .SetName("My::Cmpt::SObjPtr")
+      .Regist(&Cmpt::SObjPtr::sobj, NAMEOF(Cmpt::SObjPtr::sobj).data())
+      .Regist(string(NAMEOF(Cmpt::SObjPtr::sobj)) +
+                  "::" + Component::Meta::not_serialize,
+              Component::Meta::not_serialize_value)
       .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::SObjPtr>(); });
 
   Reflection<Cmpt::Position>::Instance()
-      .SetName("My::Cmpt::Position")
       .Regist(&Cmpt::Position::value, "value")
       .RegistConstructor(
           [](SObj* sobj) { return sobj->Get<Cmpt::Position>(); });
 
   Reflection<Cmpt::Rotation>::Instance()
-      .SetName("My::Cmpt::Rotation")
       .Regist(&Cmpt::Rotation::value, "value")
       .RegistConstructor(
           [](SObj* sobj) { return sobj->Get<Cmpt::Rotation>(); });
 
   Reflection<Cmpt::Scale>::Instance()
-      .SetName("My::Cmpt::Scale")
       .Regist(&Cmpt::Scale::value, "value")
       .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::Scale>(); });
 
   Reflection<Cmpt::Transform>::Instance()
-      .SetName("My::Cmpt::Transform")
+      .Regist(&Cmpt::Transform::value, NAMEOF(Cmpt::Transform::value).data())
+      .Regist(string(NAMEOF(Cmpt::Transform::value)) +
+                  "::" + Component::Meta::not_serialize,
+              Component::Meta::not_serialize_value)
       .RegistConstructor(
           [](SObj* sobj) { return sobj->Get<Cmpt::Transform>(); });
 
   Reflection<Cmpt::L2W>::Instance()
-      .SetName("My::Cmpt::L2W")
+      .Regist(&Cmpt::L2W::value, NAMEOF(Cmpt::L2W::value).data())
+      .Regist(string(NAMEOF(Cmpt::L2W::value)) +
+                  "::" + Component::Meta::not_serialize,
+              Component::Meta::not_serialize_value)
       .RegistConstructor([](SObj* sobj) { return sobj->Get<Cmpt::L2W>(); });
 
   Reflection<Cmpt::Camera>::Instance()
-      .SetName("My::Cmpt::Camera")
       .Regist(&Cmpt::Camera::ar, "ar")
       .Regist(&Cmpt::Camera::fov, "fov")
       .RegistConstructor([](SObj* sobj) {
@@ -69,7 +72,6 @@ void My::SceneReflectionInit() {
       });
 
   Reflection<Cmpt::Geometry>::Instance()
-      .SetName("My::Cmpt::Geometry")
       .Regist(&Cmpt::Geometry::primitive, "primitive")
       .RegistConstructor([](SObj* sobj) {
         auto [cmpt] = sobj->Attach<Cmpt::Geometry>();
@@ -77,7 +79,6 @@ void My::SceneReflectionInit() {
       });
 
   Reflection<Cmpt::Light>::Instance()
-      .SetName("My::Cmpt::Light")
       .Regist(&Cmpt::Light::light, "light")
       .RegistConstructor([](SObj* sobj) {
         auto [cmpt] = sobj->Attach<Cmpt::Light>();
@@ -85,61 +86,57 @@ void My::SceneReflectionInit() {
       });
 
   Reflection<Cmpt::Material>::Instance()
-      .SetName("My::Cmpt::Material")
       .Regist(&Cmpt::Material::material, "material")
       .RegistConstructor([](SObj* sobj) {
         auto [cmpt] = sobj->Attach<Cmpt::Material>();
         return cmpt;
       });
 
+  Reflection<Cmpt::Root>::Instance().RegistConstructor([](SObj* sobj) {
+    auto [cmpt] = sobj->Attach<Cmpt::Root>();
+    return cmpt;
+  });
+
   // =================== Light ===================
 
-  Reflection<Light>::Instance().SetName("My::Light").RegistConstructor();
+  Reflection<Light>::Instance().RegistConstructor();
 
   Reflection<AreaLight>::Instance()
-      .SetName("My::AreaLight")
       .Regist(&AreaLight::intensity, "intensity")
       .Regist(&AreaLight::color, "color")
       .Regist(&AreaLight::texture, "texture")
       .RegistConstructor();
 
   Reflection<DirLight>::Instance()
-      .SetName("My::DirLight")
       .Regist(&DirLight::intensity, "intensity")
       .Regist(&DirLight::color, "color")
       .RegistConstructor();
 
   Reflection<EnvLight>::Instance()
-      .SetName("My::EnvLight")
       .Regist(&EnvLight::intensity, "intensity")
       .Regist(&EnvLight::color, "color")
       .Regist(&EnvLight::texture, "texture")
       .RegistConstructor();
 
   Reflection<PointLight>::Instance()
-      .SetName("My::PointLight")
       .Regist(&PointLight::intensity, "intensity")
       .Regist(&PointLight::color, "color")
       .RegistConstructor();
 
   // =================== Primitive ===================
 
-  Reflection<Primitive>::Instance()
-      .SetName("My::Primitive")
-      .RegistConstructor();
+  Reflection<Primitive>::Instance().RegistConstructor();
 
-  Reflection<Sphere>::Instance().SetName("My::Sphere").RegistConstructor();
+  Reflection<Sphere>::Instance().RegistConstructor();
 
-  Reflection<Square>::Instance().SetName("My::Square").RegistConstructor();
+  Reflection<Square>::Instance().RegistConstructor();
 
   Reflection<Triangle>::Instance()
-      .SetName("My::Triangle")
       .Regist(&Triangle::mesh, "mesh")
       .Regist(&Triangle::indices, "indices")
       .RegistConstructor();
 
   Reflection<TriMesh>::Instance()
-      .SetName("My::TriMesh")
       .Regist(&TriMesh::indices, "indices")
       .Regist(&TriMesh::positions, "positions")
       .Regist(&TriMesh::texcoords, "texcoords")
@@ -149,10 +146,22 @@ void My::SceneReflectionInit() {
 
   // =================== Material ===================
 
-  Reflection<Material>::Instance().SetName("My::Material");
+  Reflection<Material>::Instance().RegistConstructor();
+
+  Reflection<Texture2D>::Instance()
+      .Regist(&Texture2D::inv_u, "inv_u")
+      .Regist(&Texture2D::inv_v, "inv_v")
+      .Regist(&Texture2D::swap_uv, "swap_uv")
+      .Regist(&Texture2D::wrap_u, "wrap_u")
+      .Regist(&Texture2D::wrap_v, "wrap_v")
+      .Regist(&Texture2D::sample_mode, "sample_mode")
+      .Regist(&Texture2D::path, "path")
+      .Regist(&Texture2D::img, "img")
+      .Regist(string("img::") + Component::Meta::not_serialize,
+              Component::Meta::not_serialize_value);
+  // .RegistConstructor([](const string& path) { return new Texture2D{path}; });
 
   Reflection<stdBRDF>::Instance()
-      .SetName("My::stdBRDF")
       .Regist(&stdBRDF::albedo_factor, "albedo_factor")
       .Regist(&stdBRDF::albedo_texture, "albedo_texture")
       .Regist(&stdBRDF::roughness_factor, "roughness_factor")
@@ -161,16 +170,4 @@ void My::SceneReflectionInit() {
       .Regist(&stdBRDF::metalness_texture, "metalness_texture")
       .Regist(&stdBRDF::normal_map, "normal_map")
       .RegistConstructor();
-
-  // =================== Resource ===================
-
-  Reflection<Texture2D>::Instance()
-      .SetName("My::Texture2D")
-      .Regist(&Texture2D::inv_u, "inv_u")
-      .Regist(&Texture2D::inv_v, "inv_v")
-      .Regist(&Texture2D::swap_uv, "swap_uv")
-      .Regist(&Texture2D::wrap_u, "wrap_u")
-      .Regist(&Texture2D::wrap_v, "wrap_v")
-      .Regist(&Texture2D::path, "path");
-  //   .RegistConstructor([](const string& path) { return new Texture2D{path}; });
 }

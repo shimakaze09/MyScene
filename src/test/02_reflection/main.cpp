@@ -2,8 +2,8 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/SceneReflectionInit.h>
 #include <MyScene/core.h>
+#include <MyScene/tool/SceneReflectionInit.h>
 
 #include <MyDP/Reflection/MemVarVisitor.h>
 #include <MyDP/Reflection/Reflection.h>
@@ -30,7 +30,7 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
   void Visit(SObj* sobj) {
     enter();
     prefix();
-    cout << "\"type\": \"" << Reflection<SObj>::Instance().GetName() << "\","
+    cout << "\"type\": \"" << Reflection<SObj>::Instance().Name() << "\","
          << endl;
     for (auto [n, v] : Reflection<SObj>::Instance().VarPtrs(*sobj)) {
       prefix();
@@ -62,10 +62,8 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
   void ImplVisit(T* const& p) {
     if (p == nullptr)
       cout << "null";
-    else if (IsRegisted<T>())
-      Visit(p);
     else
-      cout << p;
+      Visit(p);
   }
 
   template <typename T>
@@ -75,26 +73,18 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
 
   template <typename T>
   void ImplVisit(T*& p) {
-    if (IsRegisted<T>())
-      Visit(p);
-    else
-      cout << p;
+    Visit(p);
   }
 
   template <typename T>
   void ImplVisit(const set<T*>& p) {
     cout << "[";
-    if (IsRegisted<T>()) {
-      size_t num = p.size();
-      size_t i = 0;
-      for (auto var : p) {
-        Visit(var);
-        if (++i < num)
-          cout << ",";
-      }
-    } else {
-      for (auto var : p)
-        cout << var << ", ";
+    size_t num = p.size();
+    size_t i = 0;
+    for (auto var : p) {
+      Visit(var);
+      if (++i < num)
+        cout << ",";
     }
     cout << "]";
   }
@@ -142,9 +132,8 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
 
  private:
   virtual void Receive(
-      const void* obj, const std::string& name,
-      const std::map<std::string, std::shared_ptr<const VarPtrBase>>& nv)
-      override {
+      const void* obj, std::string_view name,
+      const xMap<std::string, std::shared_ptr<const VarPtrBase>>& nv) override {
     enter();
     prefix();
     cout << "\"type\": \"" << name << "\"";
@@ -153,6 +142,10 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
       cout << "," << endl;
       size_t i = 0;
       for (auto [n, v] : nv) {
+        if (ReflectionMngr::Instance().GetReflction(obj)->Meta(
+                n + "::" + Component::Meta::not_serialize) ==
+            Component::Meta::not_serialize_value)
+          continue;
         prefix();
         cout << "\"" << n << "\"" << ": ";
         VarPtrVisitor<VarSerializer>::Visit(v);

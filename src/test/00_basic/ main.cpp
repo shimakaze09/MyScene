@@ -2,7 +2,6 @@
 // Created by Admin on 29/12/2024.
 //
 
-#include <MyScene/core/Cmpt/Transform.h>
 #include <MyScene/core/Scene.h>
 
 #include <iostream>
@@ -12,7 +11,7 @@ using namespace My;
 
 class Mover : public Component {
  public:
-  void OnUpdate(Cmpt::Position* p) { p->value += vecf3{1, 1, 1}; }
+  void OnUpdate(Cmpt::Position* p) const { p->value += vecf3{1, 1, 1}; }
 };
 
 int main() {

@@ -8,15 +8,15 @@
 #include "core/Scene.h"
 
 #include "core/Cmpt/Camera.h"
-#include "core/Cmpt/Component.h"
 #include "core/Cmpt/Geometry.h"
 #include "core/Cmpt/L2W.h"
 #include "core/Cmpt/Light.h"
 #include "core/Cmpt/Material.h"
 #include "core/Cmpt/Position.h"
+#include "core/Cmpt/Root.h"
 #include "core/Cmpt/Rotation.h"
-#include "core/Cmpt/SObjPtr.h"
 #include "core/Cmpt/Scale.h"
+#include "core/Cmpt/SObjPtr.h"
 #include "core/Cmpt/Transform.h"
 
 #include "core/Light/AreaLight.h"

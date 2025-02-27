@@ -2,7 +2,7 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/serialize/DeserializerJSON.h>
+#include <MyScene/tool/Serializer/DeserializerJSON.h>
 
 #include <MyScene/core/Light/Light.h>
 #include <MyScene/core/Material/Material.h>
@@ -69,7 +69,7 @@ class My::MyJsonDoc {
 template <typename Func>
 void DeserializerJSON::RegistGenObj(Func&& func) {
   using T = std::remove_pointer_t<FuncTraits_Ret<Func>>;
-  type2func[Reflection<T>::Instance().GetName()] =
+  type2func[string(Reflection<T>::Instance().Name())] =
       [func = std::forward<Func>(func)](const MyJsonValue* cur) -> void* {
     return reinterpret_cast<void*>(func(cur->data));
   };
@@ -131,7 +131,7 @@ SObj* DeserializerJSON::DeserializeSObj(const std::string& json) {
 
 Scene* DeserializerJSON::ParseScene(const MyJsonDoc* doc) {
   if (!(**doc).IsObject() || !(**doc).HasMember("type") ||
-      (**doc)["type"] != Reflection<Scene>::Instance().GetName().c_str()) {
+      (**doc)["type"] != Reflection<Scene>::Instance().Name().data()) {
     cerr << "ERROR::DeserializerJSON::DeserializeScene:" << endl
          << "\t" << "doc isn't a scene" << endl;
     return nullptr;
@@ -147,7 +147,7 @@ Scene* DeserializerJSON::ParseScene(const MyJsonDoc* doc) {
 void DeserializerJSON::ParseSObj(Scene* scene, SObj* sobj,
                                  const MyJsonValue* value) {
   if (!(**value).IsObject() || !(**value).HasMember("type") ||
-      (**value)["type"] != Reflection<SObj>::Instance().GetName().c_str()) {
+      (**value)["type"] != Reflection<SObj>::Instance().Name().data()) {
     cerr << "ERROR::DeserializerJSON::DeserializeScene:" << endl
          << "\t" << "value isn't a SObj" << endl;
   }
@@ -208,6 +208,10 @@ void DeserializerJSON::ParseObj(void* obj, const MyJsonValue* value) {
   auto n2v = refl->VarPtrs(obj);
   for (const auto& member : (**value).GetObject()) {
     if (!std::strcmp(member.name.GetString(), "type"))  // equal
+      continue;
+    if (ReflectionMngr::Instance().GetReflction(obj)->Meta(
+            string(member.name.GetString()) + Component::Meta::not_serialize) ==
+        Component::Meta::not_serialize_value)
       continue;
 
     auto target = n2v.find(member.name.GetString());

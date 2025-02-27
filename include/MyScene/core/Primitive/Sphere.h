@@ -4,10 +4,14 @@
 
 #pragma once
 
+#include <MyGM/point.h>
 #include "Primitive.h"
 
 namespace My {
 // center : (0, 0, 0)
 // radius : 1
-class Sphere : public Primitive {};
+class Sphere : public Primitive {
+  static constexpr pointf3 center{0, 0, 0};
+  static constexpr float radius{1.f};
+};
 }  // namespace My

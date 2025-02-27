@@ -13,7 +13,7 @@ namespace My {
 class Texture2D {
  public:
   enum class WrapMode { Clamp, Repeat, Mirror };
-  enum class Sample { Nearest, Linear };
+  enum class SampleMode { Nearest, Linear };
 
   Texture2D() = default;
   Texture2D(const std::string& path);
@@ -24,12 +24,11 @@ class Texture2D {
   bool swap_uv{false};
   WrapMode wrap_u{WrapMode::Clamp};
   WrapMode wrap_v{WrapMode::Clamp};
+  SampleMode sample_mode{SampleMode::Linear};
   Read<Texture2D, std::string> path;
+  Read<Texture2D, const Image*> img{nullptr};
 
   void SetPath(const std::string& path);
-  rgbaf Sample(pointf2 uv);
-
- private:
-  Image* img{nullptr};
+  rgbaf Sample(pointf2 uv) const;
 };
 }  // namespace My

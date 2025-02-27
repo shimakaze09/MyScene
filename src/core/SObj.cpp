@@ -4,8 +4,6 @@
 
 #include <MyScene/core/SObj.h>
 
-#include <MyScene/core/Cmpt/Transform.h>
-
 using namespace My;
 using namespace std;
 

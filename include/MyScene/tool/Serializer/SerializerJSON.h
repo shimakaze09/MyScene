@@ -2,7 +2,7 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/tool/serialize/ISerializer.h>
+#include <MyScene/tool/Serializer/ISerializer.h>
 
 #include "MyJsonWriter.h"
 
@@ -97,9 +97,8 @@ class SerializerJSON : public ISerializer,
 
  private:
   virtual void Receive(
-      const void* obj, const std::string& name,
-      const std::map<std::string, std::shared_ptr<const VarPtrBase>>& nv)
-      override;
+      const void* obj, std::string_view name,
+      const xMap<std::string, std::shared_ptr<const VarPtrBase>>& nv) override;
 
  private:
   MyJsonWriter writer;
