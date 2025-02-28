@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "../ReflAttrs.h"
+
 namespace My {
 struct Material {
   virtual ~Material() = default;

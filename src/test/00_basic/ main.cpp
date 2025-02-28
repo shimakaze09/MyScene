@@ -15,6 +15,8 @@ class Mover : public Component {
 };
 
 int main() {
+  Scene::OnRegist();
+
   Scene scene("scene");
 
   auto [sobj0, mover] = scene.CreateSObj<Mover>("sobj0");

@@ -3,7 +3,6 @@
 //
 
 #include <MyScene/core.h>
-#include <MyScene/tool/SceneReflectionInit.h>
 
 #include <MyDP/Reflection/MemVarVisitor.h>
 #include <MyDP/Reflection/Reflection.h>
@@ -33,6 +32,9 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
     cout << "\"type\": \"" << Reflection<SObj>::Instance().Name() << "\","
          << endl;
     for (auto [n, v] : Reflection<SObj>::Instance().VarPtrs(*sobj)) {
+      if (Reflection<SObj>::Instance().FieldMeta(
+              n, ReflAttr::is_not_serialize) == ReflAttr::null)
+        continue;
       prefix();
       cout << "\"" << n << "\"" << ": ";
       VarPtrVisitor<VarSerializer>::Visit(v);
@@ -63,7 +65,7 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
     if (p == nullptr)
       cout << "null";
     else
-      Visit(p);
+      ReflTraitsVisitor::Visit(p);
   }
 
   template <typename T>
@@ -73,7 +75,10 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
 
   template <typename T>
   void ImplVisit(T*& p) {
-    Visit(p);
+    if (p == nullptr)
+      cout << "null";
+    else
+      ReflTraitsVisitor::Visit(p);
   }
 
   template <typename T>
@@ -82,7 +87,7 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
     size_t num = p.size();
     size_t i = 0;
     for (auto var : p) {
-      Visit(var);
+      ReflTraitsVisitor::Visit(var);
       if (++i < num)
         cout << ",";
     }
@@ -142,9 +147,8 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
       cout << "," << endl;
       size_t i = 0;
       for (auto [n, v] : nv) {
-        if (ReflectionMngr::Instance().GetReflction(obj)->Meta(
-                n + "::" + Component::Meta::not_serialize) ==
-            Component::Meta::not_serialize_value)
+        if (ReflectionMngr::Instance().GetReflction(obj)->FieldMeta(
+                n, ReflAttr::is_not_serialize) == ReflAttr::null)
           continue;
         prefix();
         cout << "\"" << n << "\"" << ": ";
@@ -180,7 +184,7 @@ class VarSerializer : public VarPtrVisitor<VarSerializer>,
 };
 
 int main() {
-  SceneReflectionInit();
+  Scene::OnRegist();
 
   Scene scene("scene");
 

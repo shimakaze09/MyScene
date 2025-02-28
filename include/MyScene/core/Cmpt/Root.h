@@ -13,11 +13,12 @@
 namespace My::Cmpt {
 class Transform;
 class L2W;
-
-struct SObjPtr;
+class SObjPtr;
 
 class Root : public Component {
  public:
+  static void OnRegist();
+
   void OnUpdate(const Transform* tsfm, L2W* l2w, const SObjPtr* ptr) const;
 };
 }  // namespace My::Cmpt

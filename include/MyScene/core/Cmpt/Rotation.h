@@ -9,7 +9,10 @@
 #include <MyGM/quat.h>
 
 namespace My::Cmpt {
-struct Rotation : Component {
+class Rotation : Component {
+ public:
   quatf value{quatf::identity()};
+
+  static void OnRegist();
 };
 }  // namespace My::Cmpt

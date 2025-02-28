@@ -40,28 +40,25 @@ const Cmpt* SObj::Get() const {
 template <typename... Cmpts>
 std::tuple<Cmpts*...> SObj::Attach() {
   static_assert((std::is_base_of_v<Component, Cmpts> && ...));
-  static_assert(((!detail::SObj_::IsUndetachableCmpt<Cmpts>) && ...),
-                "<Cmpts> is undetachable component");
+  static_assert(((!detail::SObj_::IsNecessaryCmpt<Cmpts>) && ...),
+                "<Cmpts> is necessary component");
   auto cmpts = entity->Attach<Cmpts...>();
-  ((std::get<Cmpts*>(cmpts)->sobj = this), ...);
   return cmpts;
 }
 
 template <typename Cmpt>
 Cmpt* SObj::GetOrAttach() {
   auto cmpt = Get<Cmpt>();
-  if (!cmpt) {
+  if (!cmpt)
     std::tie(cmpt) = Attach<Cmpt>();
-    cmpt->sobj = this;
-  }
   return cmpt;
 }
 
 template <typename... Cmpts>
 void SObj::Detach() {
   static_assert((std::is_base_of_v<Component, Cmpts> && ...));
-  static_assert(((!detail::SObj_::IsNecessaryCmpt<Cmpts>) && ...),
-                "<Cmpts> is necessary component");
+  static_assert(((!detail::SObj_::IsUndetachableCmpt<Cmpts>) && ...),
+                "<Cmpts> is undetachable component");
   entity->Detach<Cmpts...>();
 }
 

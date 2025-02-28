@@ -50,5 +50,7 @@ class TriMesh : public Primitive {
 
   void GenNormals();
   void GenTangents();
+
+  static void OnRegist();
 };
 }  // namespace My

@@ -3,9 +3,7 @@
 //
 
 #include <MyScene/core.h>
-#include <MyScene/tool/SceneReflectionInit.h>
 #include <MyScene/tool/Serializer/SerializerJSON.h>
-
 
 #include <fstream>
 #include <iostream>
@@ -14,7 +12,7 @@ using namespace std;
 using namespace My;
 
 int main() {
-  SceneReflectionInit();
+  Scene::OnRegist();
 
   Scene scene("scene");
 

@@ -2,11 +2,9 @@
 // Created by Admin on 30/12/2024.
 //
 
-#include <MyScene/core/Resource/ResourceMngr.h>
-#include <MyScene/tool/SceneReflectionInit.h>
+#include <MyScene/core.h>
 #include <MyScene/tool/Serializer/DeserializerJSON.h>
 #include <MyScene/tool/Serializer/SerializerJSON.h>
-#include <MyScene/core/core>
 
 #include <fstream>
 #include <iostream>
@@ -15,7 +13,7 @@ using namespace std;
 using namespace My;
 
 int main() {
-  SceneReflectionInit();
+  Scene::OnRegist();
 
   Scene scene("scene");
 
@@ -35,8 +33,7 @@ int main() {
   scene.Update();
 
   string path = "../data/tex_square.png";
-  brdf->albedo_texture =
-      ResourceMngr<Image>::Instance().GetOrCreate(path, path);
+  brdf->albedo_texture = new Texture2D{path};
 
   ISerializer* serializer = new SerializerJSON;
   IDeserializer* deserializer = new DeserializerJSON;

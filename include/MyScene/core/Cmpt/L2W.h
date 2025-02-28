@@ -11,12 +11,14 @@
 #include <MyDP/Basic/Read.h>
 
 namespace My::Cmpt {
-class Transform;
-struct SObjPtr;
+  class Root;
 
 class L2W : public Component {
  public:
-  Read<L2W, transformf> value;
+ [[is_not_serialize]]
+ Read<Root, transformf> value;
+
+ static void OnRegist();
 
   const pointf3 WorldPos() const noexcept;
   const quatf WorldRot() const noexcept;

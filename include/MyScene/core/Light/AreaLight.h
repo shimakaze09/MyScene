@@ -26,5 +26,7 @@ struct AreaLight : Light {
   AreaLight(float intensity = 1.f, const rgbf& color = rgbf{1.f},
             Texture2D* texture = nullptr)
       : intensity{intensity}, color{color}, texture{texture} {}
+
+  static void OnRegist();
 };
 }  // namespace My

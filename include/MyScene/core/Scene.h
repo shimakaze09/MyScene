@@ -21,8 +21,10 @@ class Scene : public World {
   // auto add Cmpt::Transform
   // if parent == nullptr, it will be added to root
   template <typename... Cmpts>
-  std::tuple<SObj*, Cmpt::Transform*, Cmpts*...> CreateSObj(
-      const std::string& name, SObj* parent = nullptr);
+  std::tuple<SObj*, Cmpts*...> CreateSObj(const std::string& name,
+                                          SObj* parent = nullptr);
+
+  static void OnRegist();
 
  private:
   using World::CreateEntity;

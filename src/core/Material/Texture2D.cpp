@@ -6,6 +6,8 @@
 
 #include <MyBL/RsrcMngr.h>
 
+#include "detail/dynamic_reflection/Texture2D.inl"
+
 using namespace My;
 using namespace std;
 
@@ -13,11 +15,11 @@ Texture2D::Texture2D(const std::string& path)
     : path{path}, img{RsrcMngr<Image>::Instance().GetOrCreate(path)} {}
 
 void Texture2D::SetPath(const string& path) {
-  this->path = path;
-  img = RsrcMngr<Image>::Instance().GetOrCreate(path);
+  this->path.val = path;
+  img.val = RsrcMngr<Image>::Instance().GetOrCreate(path);
 }
 
-rgbaf Texture2D::Sample(pointf2 uv)const  {
+rgbaf Texture2D::Sample(pointf2 uv) const {
   // transform uv
   WrapMode wrapmodes[2] = {wrap_u, wrap_v};
   bool inv[2] = {inv_u, inv_v};
@@ -41,13 +43,16 @@ rgbaf Texture2D::Sample(pointf2 uv)const  {
     swap(uv[0], uv[1]);
 
   // sample
-  switch (sample_mode)
-	{
-	case My::Texture2D::SampleMode::Nearest:
-		return img->SampleNearest(uv);
-	case My::Texture2D::SampleMode::Linear:
-		return img->SampleLinear(uv);
-	default:
-		return { 1.f };
-	}
+  switch (sample_mode) {
+    case My::Texture2D::SampleMode::Nearest:
+      return img->SampleNearest(uv);
+    case My::Texture2D::SampleMode::Linear:
+      return img->SampleLinear(uv);
+    default:
+      return {1.f};
+  }
+}
+
+void Texture2D::OnRegist() {
+  detail::dynamic_reflection::ReflRegist_Texture2D();
 }

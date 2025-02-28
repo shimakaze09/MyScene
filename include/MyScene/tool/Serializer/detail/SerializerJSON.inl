@@ -7,10 +7,10 @@
 namespace My {
 template <typename T>
 void SerializerJSON::ImplVisit(T* const& obj) {
-  if (!obj || !IsRegisted<T>())
+  if (!obj || !ISerializer::IsRegisted(obj))
     writer.Null();
   else
-    Visit(obj);
+    ISerializer::Visit(obj);
 }
 
 template <typename Func>

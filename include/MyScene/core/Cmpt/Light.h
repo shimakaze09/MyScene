@@ -15,15 +15,13 @@ class Light : public Component {
  public:
   Read<Light, My::Light*> light{nullptr};
 
-  void SetLight(My::Light* light) {
-    delete this->light;
-    this->light = light;
-  }
+  Light();
+  virtual ~Light();
 
-  Light() = default;
+  Light(Light&& light) noexcept;
 
-  virtual ~Light() { delete light; }
+  void SetLight(My::Light* light);
 
-  Light(Light&& light) noexcept : light{light.light} { light.light = nullptr; }
+  static void OnRegist();
 };
 }  // namespace My::Cmpt

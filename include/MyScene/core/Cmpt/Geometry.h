@@ -16,17 +16,12 @@ class Geometry : public Component {
  public:
   Read<Geometry, Primitive*> primitive{nullptr};
 
-  void SetPrimitive(Primitive* primitive) {
-    delete this->primitive;
-    this->primitive = primitive;
-  }
+  Geometry();
+  Geometry(Geometry&& geo) noexcept;
+  virtual ~Geometry();
 
-  Geometry() = default;
+  static void OnRegist();
 
-  virtual ~Geometry() { delete primitive; }
-
-  Geometry(Geometry&& geo) noexcept : primitive{geo.primitive} {
-    geo.primitive = nullptr;
-  }
+  void SetPrimitive(Primitive* primitive);
 };
 }  // namespace My::Cmpt

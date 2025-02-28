@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#pragma warning(disable : 5030)
 
 #include <MyECS/Entity.h>
 
@@ -18,7 +19,7 @@ class Scene;
 class SObj {
  public:
   std::string name;
-
+  [[is_not_serialize]]
   Read<SObj, SObj*> parent{nullptr};
   Read<SObj, std::set<SObj*>> children;
 
@@ -42,7 +43,6 @@ class SObj {
   template <typename... Cmpts>
   std::tuple<Cmpts*...> Attach();
 
-  // not run in Scene.Each
   template <typename Cmpt>
   Cmpt* GetOrAttach();
 
@@ -53,6 +53,8 @@ class SObj {
 
   // Attach, Detach, Release, World::CreateEntity
   void AddCommand(const std::function<void()>& command);
+
+  static void OnRegist();
 
  protected:
   SObj() : entity{nullptr} {}

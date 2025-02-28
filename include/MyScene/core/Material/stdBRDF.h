@@ -36,5 +36,7 @@ struct stdBRDF : Material {
         metalness_factor{metalness_factor},
         metalness_texture{metalness_texture},
         normal_map{normal_map} {}
+
+  static void OnRegist();
 };
 }  // namespace My

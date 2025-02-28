@@ -4,12 +4,18 @@
 
 #include <MyScene/core/Cmpt/L2W.h>
 
+#include "detail/dynamic_reflection/L2W.inl"
+
 #include <MyScene/core/Cmpt/SObjPtr.h>
 #include <MyScene/core/Cmpt/Transform.h>
 
 #include <MyScene/core/SObj.h>
 
 using namespace My;
+
+void Cmpt::L2W::OnRegist() {
+  detail::dynamic_reflection::ReflRegist_L2W();
+}
 
 const pointf3 Cmpt::L2W::WorldPos() const noexcept {
   return value->decompose_position();

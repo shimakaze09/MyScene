@@ -9,7 +9,6 @@
 #include <MyGM/point.h>
 #include <MyGM/rgb.h>
 
-
 namespace My {
 class Texture2D;
 
@@ -23,8 +22,9 @@ struct EnvLight : Light {
 
   rgbf radiance(const pointf2& uv) const noexcept;
 
-  EnvLight(float intensity = 1.f, const rgbf& color = rgbf{1.f},
-           Texture2D* texture = nullptr)
-      : intensity{intensity}, color{color}, texture{texture} {}
+  EnvLight(float intensity = 1.f, const rgbf& color = rgbf{1.f, 1.f, 1.f},
+           Texture2D* texture = nullptr);
+
+  static void OnRegist();
 };
 }  // namespace My

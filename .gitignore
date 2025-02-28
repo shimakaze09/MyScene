@@ -690,3 +690,4 @@ FodyWeavers.xsd
 # MISC
 _deps/
 *.myscene
+dynamic_reflection/

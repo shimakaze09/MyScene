@@ -4,6 +4,8 @@
 
 #include <MyScene/core/Primitive/TriMesh.h>
 
+#include "detail/dynamic_reflection/TriMesh.inl"
+
 using namespace My;
 using namespace std;
 
@@ -174,8 +176,8 @@ bool TriMesh::Init(const vector<valu3>& indices,
     return false;
   }
 
-  this->indices = indices;
-  this->positions = positions;
+  this->indices.val = indices;
+  this->positions.val = positions;
 
   if (texcoords.empty()) {
     this->texcoords->resize(positions.size());
@@ -186,17 +188,17 @@ bool TriMesh::Init(const vector<valu3>& indices,
                                    .cast_to<normalf>()
                                    .to_sphere_texcoord();
   } else
-    this->texcoords = texcoords;
+    this->texcoords.val = texcoords;
 
   if (normals.empty())
     GenNormals();
   else
-    this->normals = normals;
+    this->normals.val = normals;
 
   if (tangents.size() == 0)
     GenTangents();
   else
-    this->tangents = tangents;
+    this->tangents.val = tangents;
 
   return true;
 }
@@ -304,4 +306,8 @@ void TriMesh::GenTangents() {
     // Calculate handedness
     tangents->at(i) *= (n.cross(t).dot(tanT[i]) < 0.0F) ? -1.f : 1.f;
   }
+}
+
+void TriMesh::OnRegist() {
+  detail::dynamic_reflection::ReflRegist_TriMesh();
 }

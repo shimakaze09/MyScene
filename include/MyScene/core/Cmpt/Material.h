@@ -16,18 +16,13 @@ class Material : public Component {
  public:
   Read<Material, My::Material*> material{nullptr};
 
-  void SetMaterial(My::Material* material) {
-    delete this->material;
-    this->material = material;
-  }
+  Material();
+  virtual ~Material();
 
-  Material() = default;
+  Material(Material&& material) noexcept;
 
-  virtual ~Material() { delete material; }
+  void SetMaterial(My::Material* material);
 
-  Material(Material&& material) noexcept : Component(material) {
-    this->material = material.material;
-    material.material = nullptr;
-  }
+  static void OnRegist();
 };
 }  // namespace My::Cmpt

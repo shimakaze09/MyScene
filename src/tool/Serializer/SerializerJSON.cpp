@@ -80,9 +80,8 @@ void SerializerJSON::Receive(
   writer.String(name.data());
 
   for (auto [n, v] : nv) {
-    if (ReflectionMngr::Instance().GetReflction(obj)->Meta(
-            n + "::" + Component::Meta::not_serialize) ==
-        Component::Meta::not_serialize_value)
+    if (ReflectionMngr::Instance().GetReflction(obj)->FieldMeta(
+            n, ReflAttr::is_not_serialize) == ReflAttr::null)
       continue;
     writer.Key(n.c_str());
     VarPtrVisitor<SerializerJSON>::Visit(v);  // serialize variable

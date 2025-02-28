@@ -13,10 +13,15 @@
 
 namespace My::Cmpt {
 // front is -z in local coordinate
-class Camera : public Component {
+class [[info("pinhole camera")]] Camera : public Component {
  public:
-  float fov{My::to_radian(60.f)};  // field of view in verticle, in radian
-  float ar{16.f / 9.f};            // aspect ratio
+  [[info("width / height")]] [[pretty_name("aspect ratio")]]
+  float ar{16.f / 9.f};
+
+  [[info("in verticle, in radian")]] [[pretty_name("field of view")]]
+  float fov{My::to_radian(60.f)};
+
+  static void OnRegist();
 
   struct CoordinateSystem {
     pointf3 pos;
