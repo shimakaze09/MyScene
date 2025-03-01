@@ -6,6 +6,8 @@
 
 #include "../ReflAttrs.h"
 
+#include <MyECS/CmptTag.h>
+
 namespace My {
 // vtable is typeid
 // alignas for __m128

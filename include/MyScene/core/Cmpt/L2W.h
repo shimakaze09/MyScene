@@ -11,14 +11,15 @@
 #include <MyDP/Basic/Read.h>
 
 namespace My::Cmpt {
-  class Root;
+class Root;
 
+// local to world transformation
 class L2W : public Component {
  public:
- [[is_not_serialize]]
- Read<Root, transformf> value;
+  [[is_not_serialize]]
+  Read<Root, transformf> value{transformf::eye()};
 
- static void OnRegist();
+  static void OnRegist();
 
   const pointf3 WorldPos() const noexcept;
   const quatf WorldRot() const noexcept;

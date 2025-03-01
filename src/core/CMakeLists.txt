@@ -1,15 +1,3 @@
-DOWNLOAD_FILE(
-        https://github.com/shimakaze09/MyData/blob/main/common/include/stb_image.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/_deps/stb_image.h
-        SHA256 ca0456d64442d54f20ac4b42f72d080d0b90e0f7d7375931fbab82abe41ce3af
-)
-
-DOWNLOAD_FILE(
-        https://github.com/shimakaze09/MyData/blob/main/common/include/stb_image_write.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/_deps/stb_image_write.h
-        SHA256 ddc2f13ae95e42927dda169aac8eac59e3b312d36d33d4752676020c5d8d6e70
-)
-
 GLOBAL_GROUP_SOURCES(RST SOURCES PATHS
         ${CMAKE_CURRENT_SOURCE_DIR}
         "${PROJECT_SOURCE_DIR}/include/MyScene/core"
@@ -40,7 +28,7 @@ FUNCTION(GEN_REFL DIR)
     )
 ENDFUNCTION()
 
-IF(false)
+IF(true)
     GEN_REFL(Cmpt)
     GEN_REFL(Material)
     GEN_REFL(Light)

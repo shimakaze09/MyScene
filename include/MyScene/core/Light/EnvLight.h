@@ -8,6 +8,7 @@
 
 #include <MyGM/point.h>
 #include <MyGM/rgb.h>
+#include <MyGM/vec.h>
 
 namespace My {
 class Texture2D;
@@ -18,9 +19,12 @@ struct EnvLight : Light {
   rgbf color;
   Texture2D* texture;
 
-  rgbf radiance_factor() const noexcept { return intensity * color; }
+  rgbf RadianceFactor() const noexcept { return intensity * color; }
 
-  rgbf radiance(const pointf2& uv) const noexcept;
+  rgbf Radiance(const pointf2& uv) const noexcept;
+  rgbf Radiance(const vecf3& dir) const noexcept;
+  // radiance, direction, pdf
+  std::tuple<rgbf, vecf3, float> Sample() const noexcept;
 
   EnvLight(float intensity = 1.f, const rgbf& color = rgbf{1.f, 1.f, 1.f},
            Texture2D* texture = nullptr);

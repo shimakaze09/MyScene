@@ -7,7 +7,7 @@
 #include "Primitive.h"
 
 #include <MyDP/Basic/Read.h>
-#include <MyGM/MyGM>
+#include <MyGM/MyGM.h>
 
 #include <vector>
 

@@ -6,7 +6,7 @@
 
 #include "MyJsonWriter.h"
 
-#include <MyGM/MyGM>
+#include <MyGM/MyGM.h>
 
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>

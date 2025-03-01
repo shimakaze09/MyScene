@@ -4,7 +4,7 @@
 
 #include <MyScene/core.h>
 #include <MyScene/tool/Accel/BVH.h>
-#include <MyScene/tool/Intersector/IntersectorClostest.h>
+#include <MyScene/tool/Intersector/IntersectorClosest.h>
 
 #include <fstream>
 #include <iostream>
@@ -48,7 +48,7 @@ int main() {
   auto cameraCoordSystem = camera->GenCoordinateSystem(l2w);
 
   BVH bvh(&scene);
-  IntersectorClostest intersector;
+  IntersectorClosest intersector;
 
   Image img(width, height, 3);
   for (size_t j = 0; j < height; j++) {
@@ -58,7 +58,7 @@ int main() {
       rayf3 r = camera->GenRay(u, v, cameraCoordSystem);
       auto rst = intersector.Visit(&bvh, r);
       if (rst.IsIntersected()) {
-        auto color = ((rst.norm + normalf{1.f}) / 2.f).cast_to<rgbf>();
+        auto color = ((rst.n + normalf{1.f}) / 2.f).cast_to<rgbf>();
         img.At(i, j, 0) = color[0];
         img.At(i, j, 1) = color[1];
         img.At(i, j, 2) = color[2];

@@ -6,7 +6,7 @@
 
 #include <MyDP/Visitor/Visitor.h>
 
-#include <MyGM/MyGM>
+#include <MyGM/MyGM.h>
 
 namespace My {
 class BVH;
@@ -16,25 +16,24 @@ class Square;
 class Sphere;
 class Triangle;
 
-class IntersectorClostest
-    : public RawPtrVisitor<IntersectorClostest, Primitive> {
+class IntersectorClosest : public RawPtrVisitor<IntersectorClosest, Primitive> {
  public:
-  IntersectorClostest();
+  IntersectorClosest();
 
   struct Rst {
     bool IsIntersected() const noexcept { return sobj != nullptr; }
 
-    const SObj* sobj{nullptr};
-    float t;
-    pointf2 uv;
-    normalf norm;
-    vecf3 tangent;
+    const SObj* sobj{nullptr};  // intersection sobj
+    pointf3 pos;                // intersection point's position
+    pointf2 uv;                 // texcoord
+    normalf n;                  // normal, normalized
+    vecf3 tangent;              // perpendicular to normal, normalized
   };
 
   const Rst Visit(const BVH* bvh, const rayf3& r) const;
 
  protected:
-  using RawPtrVisitor<IntersectorClostest, Primitive>::Visit;
+  using RawPtrVisitor<IntersectorClosest, Primitive>::Visit;
   void ImplVisit(const Square* primitive);
   void ImplVisit(const Sphere* primitive);
   void ImplVisit(const Triangle* primitive);

@@ -7,7 +7,7 @@
 #include <MyScene/tool/Accel/BVH.h>
 #include <MyScene/core.h>
 
-#include <MyGM/MyGM>
+#include <MyGM/MyGM.h>
 
 #include <stack>
 

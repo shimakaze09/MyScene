@@ -9,7 +9,7 @@
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
 
-#include <MyGM/MyGM>
+#include <MyGM/MyGM.h>
 
 #include <functional>
 #include <map>
