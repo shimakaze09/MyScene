@@ -45,7 +45,7 @@ struct stdBRDF : Material {
   const float Metalness(const pointf2& uv) const;
   const normalf Normal(const pointf2& uv) const;
 
-  static float Alpha(float roughness) noexcept { return roughness * roughness; }
+  static float Alpha(float roughness) noexcept;
 
   static rgbf F0(float metalness, const rgbf& albedo);
   static rgbf Fresnel(const rgbf& F0, float cos_theta);

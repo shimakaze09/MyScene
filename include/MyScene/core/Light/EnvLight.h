@@ -6,6 +6,7 @@
 
 #include "Light.h"
 
+#include <MyGM/normal.h>
 #include <MyGM/point.h>
 #include <MyGM/rgb.h>
 #include <MyGM/vec.h>
@@ -23,8 +24,12 @@ struct EnvLight : Light {
 
   rgbf Radiance(const pointf2& uv) const noexcept;
   rgbf Radiance(const vecf3& dir) const noexcept;
-  // radiance, direction, pdf
+  // radiance, wi, pdf
   std::tuple<rgbf, vecf3, float> Sample() const noexcept;
+  // radiance, wi, pdf
+  // assert(n.is_normalized())
+  std::tuple<rgbf, vecf3, float> Sample(const normalf& n) const noexcept;
+  float PDF(const vecf3& dir) const noexcept;
 
   EnvLight(float intensity = 1.f, const rgbf& color = rgbf{1.f, 1.f, 1.f},
            Texture2D* texture = nullptr);

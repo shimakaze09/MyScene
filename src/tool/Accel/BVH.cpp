@@ -66,7 +66,7 @@ class BVH::BVHInitializer
     const auto& l2w = holder->GetL2W(square);
     holder->primitives.push_back(square);
     p2b[square] =
-        l2w * bboxf3{{-1, -1, -1 - EPSILON<float>}, {1, 1, 1 + EPSILON<float>}};
+        l2w * bboxf3{{-1, -EPSILON<float>, -1}, {1, EPSILON<float>, 1}};
   }
 
   void ImplVisit(TriMesh* mesh) {
