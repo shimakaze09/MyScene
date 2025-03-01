@@ -1,3 +1,10 @@
+DOWNLOAD_ZIP_PRO(
+        https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyScene/tiny_obj_loader.zip
+        tiny_obj_loader.zip
+        ${CMAKE_CURRENT_SOURCE_DIR}/Primitive/_deps
+        SHA256 a3cf514eec322ce11c0b20590758e8d01053963de52dba2da9c3cbb780d87699
+)
+
 GLOBAL_GROUP_SOURCES(RST SOURCES PATHS
         ${CMAKE_CURRENT_SOURCE_DIR}
         "${PROJECT_SOURCE_DIR}/include/MyScene/core"
@@ -28,7 +35,7 @@ FUNCTION(GEN_REFL DIR)
     )
 ENDFUNCTION()
 
-IF(false)
+IF(true)
     GEN_REFL(Cmpt)
     GEN_REFL(Material)
     GEN_REFL(Light)

@@ -202,14 +202,15 @@ vector<VarMeta> GenVarMeta(string in_public) {
 
   vector<VarMeta> rst;
   string sPrefix = fStar(fOr("static", "constexpr") + " ");
-  string sVar = fOptional("\\[\\[" + fCapture(sMetas) + "\\]\\]") +
-                fCapture("(?:(?:(?:static|constexpr) )*)")  // prefix
-                + fCapture(fOptional("const ") + fStar(sID + "::") + sID +
-                           fExpr(" |\\[\\]|\\*(?:const ?)"))  // type prefix
-                + fCapture(sID) +
-                fCapture(fOptional("\\[" + fOptional("[1-9][0-9]*") +
-                                   "\\]"))  // type postfix
-                + ";";
+  string sVar =
+      fOptional("\\[\\[" + fCapture(sMetas) + "\\]\\]") +
+      fCapture("(?:(?:(?:static|constexpr) )*)")  // prefix
+      + fCapture(fOptional("const ") + fStar(sID + "::") + sID +
+                 fExpr(" |\\[\\]|\\*|&") + fOptional("const"))  // type prefix
+      + fCapture(sID) +
+      fCapture(
+          fOptional("\\[" + fOptional("[1-9][0-9]*") + "\\]"))  // type postfix
+      + ";";
   auto biter_in_public = in_public.cbegin();
   auto eiter_in_public = in_public.cend();
   smatch match_in_public;
@@ -365,7 +366,7 @@ void WriteFile(const string& path, const std::vector<ClassMeta>& classMetas) {
        << "*/" << endl
        << endl;
 
-  file << "#include <UDP/Reflection/Reflection.h>" << endl << endl;
+  file << "#include <MyDP/Reflection/Reflection.h>" << endl << endl;
   file << "#include <MyScene/core/SObj.h>" << endl << endl;
 
   for (const auto& classMeta : classMetas) {
