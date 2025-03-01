@@ -210,8 +210,8 @@ void DeserializerJSON::ParseObj(void* obj, const MyJsonValue* value) {
     if (!std::strcmp(member.name.GetString(), "type"))  // equal
       continue;
     if (ReflectionMngr::Instance().GetReflction(obj)->FieldMeta(
-            string(member.name.GetString()), ReflAttr::is_not_serialize) ==
-        ReflAttr::null)
+            string(member.name.GetString()), ReflAttr::not_serialize) ==
+        ReflAttr::default_value)
       continue;
 
     auto target = n2v.find(member.name.GetString());

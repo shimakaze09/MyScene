@@ -24,9 +24,9 @@ class LinearBVHNode {
   }
 
  public:
-  const bboxf3& GetBox() const { return box; }
+  const bboxf3& GetBox() const noexcept { return box; }
 
-  bool IsLeaf() const { return shapesNum != 0; }
+  bool IsLeaf() const noexcept { return shapesNum != 0; }
 
   const std::vector<size_t> PrimitiveIndices() const {
     assert(IsLeaf());
@@ -36,14 +36,14 @@ class LinearBVHNode {
     return rst;
   }
 
-  static size_t FirstChildIdx(size_t nodeIdx) { return nodeIdx + 1; }
+  static size_t FirstChildIdx(size_t nodeIdx) noexcept { return nodeIdx + 1; }
 
-  size_t GetSecondChildIdx() const {
+  size_t GetSecondChildIdx() const noexcept {
     assert(!IsLeaf());
     return secondChildIdx;
   }
 
-  Axis GetAxis() const {
+  Axis GetAxis() const noexcept {
     assert(!IsLeaf());
     return axis;
   }

@@ -23,10 +23,10 @@ Cmpt::Material::~Material() {
 
 Cmpt::Material::Material(Material&& material) noexcept
     : material{material.material} {
-  material.material.val = nullptr;
+  material.material = nullptr;
 }
 
 void Cmpt::Material::SetMaterial(My::Material* material) {
   delete this->material;
-  this->material.val = material;
+  this->material = material;
 }

@@ -16,7 +16,7 @@ class SObj;
 namespace My::Cmpt {
 class SObjPtr : Component {
  public:
-  [[is_not_serialize]]
+  [[not_serialize]]
   Read<Scene, SObj*> value{nullptr};
 
   static void OnRegist();

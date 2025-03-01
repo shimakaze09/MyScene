@@ -28,7 +28,7 @@ FUNCTION(GEN_REFL DIR)
     )
 ENDFUNCTION()
 
-IF(true)
+IF(false)
     GEN_REFL(Cmpt)
     GEN_REFL(Material)
     GEN_REFL(Light)

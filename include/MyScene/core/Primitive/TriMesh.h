@@ -5,20 +5,29 @@
 #pragma once
 
 #include "Primitive.h"
+#include "Triangle.h"
 
+#include <MyBL/Pool.h>
 #include <MyDP/Basic/Read.h>
-#include <MyGM/MyGM.h>
+#include <MyGM/UGM.h>
 
 #include <vector>
 
 namespace My {
 class TriMesh : public Primitive {
  public:
+  [[not_UI]]
   Read<TriMesh, std::vector<valu3>> indices;  // unsigned is for OpenGL
+  [[not_UI]]
   Read<TriMesh, std::vector<pointf3>> positions;
+  [[not_UI]]
   Read<TriMesh, std::vector<pointf2>> texcoords;
+  [[not_UI]]
   Read<TriMesh, std::vector<normalf>> normals;
+  [[not_UI]]
   Read<TriMesh, std::vector<vecf3>> tangents;
+  [[not_serialize, not_UI]]
+  Read<TriMesh, std::vector<const Triangle*>> triangles;
 
   TriMesh() = default;
 
@@ -52,5 +61,8 @@ class TriMesh : public Primitive {
   void GenTangents();
 
   static void OnRegist();
+
+ private:
+  Pool<Triangle> triPool;
 };
 }  // namespace My

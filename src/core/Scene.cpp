@@ -19,7 +19,7 @@ Scene::Scene(const std::string& name)
                                   Cmpt::Scale, Cmpt::Transform, Cmpt::L2W,
                                   Cmpt::Root>()),
           name)} {
-  root->Get<Cmpt::SObjPtr>()->value.val = root;
+  root->Get<Cmpt::SObjPtr>()->value = root;
 }
 
 Scene::~Scene() {

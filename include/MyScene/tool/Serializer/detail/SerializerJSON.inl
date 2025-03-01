@@ -7,10 +7,10 @@
 namespace My {
 template <typename T>
 void SerializerJSON::ImplVisit(T* const& obj) {
-  if (!obj || !ISerializer::IsRegisted(obj))
+  if (!obj || !ReflTraitsVisitor::IsRegisted(obj))
     writer.Null();
   else
-    ISerializer::Visit(obj);
+    ReflTraitsVisitor::Visit(obj);
 }
 
 template <typename Func>
@@ -36,6 +36,6 @@ void SerializerJSON::RegistSerializeOtherMember(Func&& func) {
 
 template <typename Obj>
 void SerializerJSON::RegistObjPtrMemVar() {
-  VarPtrVisitor<SerializerJSON>::RegistC<Obj*>();
+  VarPtrVisitor<SerializerJSON>::Regist<Obj*>();
 }
 }  // namespace My

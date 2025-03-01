@@ -48,7 +48,6 @@ int main() {
   auto cameraCoordSystem = camera->GenCoordinateSystem(l2w);
 
   BVH bvh(&scene);
-  IntersectorVisibility intersector;
 
   Image img(width, height, 1);
   for (size_t j = 0; j < height; j++) {
@@ -56,7 +55,7 @@ int main() {
     for (size_t i = 0; i < width; i++) {
       float u = i / static_cast<float>(width);
       rayf3 r = camera->GenRay(u, v, cameraCoordSystem);
-      bool visibility = intersector.Visit(&bvh, r);
+      bool visibility = IntersectorVisibility::Instance().Visit(&bvh, r);
       img.At(i, j, 0) = static_cast<float>(visibility);
     }
   }

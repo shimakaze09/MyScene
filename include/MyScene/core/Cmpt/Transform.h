@@ -17,7 +17,7 @@ class Scale;
 
 class Transform : public Component {
  public:
-  [[is_not_serialize]]
+  [[not_serialize]]
   Read<Transform, transformf> value{transformf::eye()};
 
   static void OnRegist();

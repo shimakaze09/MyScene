@@ -22,10 +22,10 @@ Cmpt::Light::~Light() {
 }
 
 Cmpt::Light::Light(Light&& light) noexcept : light{light.light} {
-  light.light.val = nullptr;
+  light.light = nullptr;
 }
 
 void Cmpt::Light::SetLight(My::Light* light) {
   delete this->light;
-  this->light.val = light;
+  this->light = light;
 }

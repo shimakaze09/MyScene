@@ -16,7 +16,7 @@ class Root;
 // local to world transformation
 class L2W : public Component {
  public:
-  [[is_not_serialize]]
+  [[not_serialize]]
   Read<Root, transformf> value{transformf::eye()};
 
   static void OnRegist();

@@ -8,6 +8,7 @@
 
 #include <MyGM/MyGM.h>
 
+#include <MyDP/Reflection/ReflTraits.h>
 #include <MyDP/Reflection/Reflection.h>
 #include <MyDP/Reflection/VarPtrVisitor.h>
 
@@ -18,6 +19,7 @@ class Scene;
 class SObj;
 
 class SerializerJSON : public ISerializer,
+                       public ReflTraitsVisitor,
                        public VarPtrVisitor<SerializerJSON> {
  public:
   SerializerJSON();
@@ -96,16 +98,16 @@ class SerializerJSON : public ISerializer,
   void ImplVisit(const My::transform<T>& val);
 
  private:
-  virtual void Receive(
-      const void* obj, std::string_view name,
-      const xMap<std::string, std::shared_ptr<const VarPtrBase>>& nv) override;
+  virtual void Receive(void* obj, std::string_view name,
+                       ReflectionBase& refl) override;
 
  private:
   MyJsonWriter writer;
   std::map<const void*, std::function<void(const void*)>>
       callbacks;  // key is vtable
+
   using ReflTraitsVisitor::Visit;
-  using VarPtrVisitor<SerializerJSON>::RegistC;
+  using VarPtrVisitor<SerializerJSON>::Regist;
 };
 }  // namespace My
 

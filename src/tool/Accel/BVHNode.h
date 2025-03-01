@@ -20,19 +20,19 @@ class BVHNode {
 
   ~BVHNode();
 
-  bool IsLeaf() const { return l == nullptr && r == nullptr; }
+  bool IsLeaf() const noexcept { return l == nullptr && r == nullptr; }
 
-  const bboxf3& GetBBox() const { return box; }
+  const bboxf3& GetBBox() const noexcept { return box; }
 
-  size_t GetPrimitiveOffset() const { return primitiveOffset; }
+  size_t GetPrimitiveOffset() const noexcept { return primitiveOffset; }
 
-  size_t GetPrimitiveNum() const { return primitiveNum; }
+  size_t GetPrimitiveNum() const noexcept { return primitiveNum; }
 
-  Axis GetAxis() const { return axis; }
+  Axis GetAxis() const noexcept { return axis; }
 
-  BVHNode* GetL() const { return l; }
+  BVHNode* GetL() const noexcept { return l; }
 
-  BVHNode* GetR() const { return r; }
+  BVHNode* GetR() const noexcept { return r; }
 
  private:
   void Build(const std::unordered_map<const Primitive*, bboxf3>& p2b,

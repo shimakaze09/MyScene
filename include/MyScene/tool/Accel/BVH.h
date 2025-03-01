@@ -5,15 +5,11 @@
 #pragma once
 
 #include "LinearBVHNode.h"
-#include "detail/PrimitiveGetter.h"
 
-#include <MyGM/bbox.h>
 #include <MyGM/transform.h>
 
 #include <unordered_map>
 #include <vector>
-
-#include <MyDP/Visitor/Visitor.h>
 
 namespace My {
 class SObj;
@@ -24,7 +20,6 @@ class BVHNode;
 class BVH {
  public:
   BVH(Scene* scene = nullptr);
-  ~BVH();
 
   void Init(Scene* scene);
   void Clear();
@@ -50,9 +45,6 @@ class BVH {
   friend class BVHInitializer;
 
   std::vector<const Primitive*> primitives;
-  std::vector<const Primitive*> need_delete_primitives;
-
-  detail::Accel_::PrimitiveGetter primitiveGetter;
 
   std::vector<LinearBVHNode> linearBVHNodes;
 };
