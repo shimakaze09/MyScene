@@ -19,7 +19,7 @@ SerializerJSON::SerializerJSON() {
   ReflTraitsIniter::Instance().Init(*this);
 
   // register all member variable type
-  VarPtrVisitor<SerializerJSON>::Register<
+  VarPtrVisitor<void (SerializerJSON::*)()>::Register<
       bool, float, double, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t,
       uint32_t, uint64_t,
 
@@ -86,7 +86,8 @@ void SerializerJSON::Receive(void* obj, std::string_view name,
       auto str = static_cast<VarPtr<string>&>(*v);
       if (!str->empty()) {
         writer.Key(kernel.c_str());
-        VarPtrVisitor<SerializerJSON>::Visit(v);  // serialize variable
+        VarPtrVisitor<void (SerializerJSON::*)()>::Visit(
+            v);  // serialize variable
         break;
       }
     }
@@ -95,7 +96,8 @@ void SerializerJSON::Receive(void* obj, std::string_view name,
       if (refl.FieldMeta(n, ReflAttr::not_serialize) == ReflAttr::default_value)
         continue;
       writer.Key(n.c_str());
-      VarPtrVisitor<SerializerJSON>::Visit(v);  // serialize variable
+      VarPtrVisitor<void (SerializerJSON::*)()>::Visit(
+          v);  // serialize variable
     }
   } while (false);
 

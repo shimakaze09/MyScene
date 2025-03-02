@@ -20,7 +20,7 @@ class SObj;
 
 class SerializerJSON : public ISerializer,
                        public ReflTraitsVisitor,
-                       public VarPtrVisitor<SerializerJSON> {
+                       public VarPtrVisitor<void (SerializerJSON::*)()> {
  public:
   SerializerJSON();
 
@@ -107,7 +107,7 @@ class SerializerJSON : public ISerializer,
       callbacks;  // key is vtable
 
   using ReflTraitsVisitor::Visit;
-  using VarPtrVisitor<SerializerJSON>::Register;
+  using VarPtrVisitor<void (SerializerJSON::*)()>::Register;
 };
 }  // namespace My
 

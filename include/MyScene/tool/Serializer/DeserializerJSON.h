@@ -20,7 +20,7 @@ class MyJsonValue;
 class MyJsonDoc;
 
 class DeserializerJSON : public IDeserializer,
-                         public VarPtrVisitor<DeserializerJSON> {
+                         public VarPtrVisitor<void (DeserializerJSON::*)()> {
  public:
   DeserializerJSON();
 
