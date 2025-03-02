@@ -16,5 +16,6 @@ struct ReflAttr {
   static constexpr std::string_view serialize_kernel =
       "serialize_kernel";  // must be string
   static constexpr std::string_view not_UI = "not_UI";
+  static constexpr std::string_view range = "range";
 };
 }  // namespace My

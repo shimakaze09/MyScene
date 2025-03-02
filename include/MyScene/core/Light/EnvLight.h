@@ -16,6 +16,7 @@ class Texture2D;
 
 // EnvLight's radiance = intensity * color * texture(u, v)
 struct EnvLight : Light {
+  [[range("0,")]]
   float intensity;
   rgbf color;
   Texture2D* texture;

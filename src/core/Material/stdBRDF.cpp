@@ -71,6 +71,9 @@ float stdBRDF::Alpha(float roughness) noexcept {
 
 rgbf stdBRDF::BRDF(const rgbf& albedo, float metalness, float roughness,
                    const svecf& wi, const svecf& wo) {
+  if (wi[2] < 0 || wo[2] < 0)
+    return rgbf{0.f, 0.f, 0.f};
+
   svecf wm = (wi + wo).normalize();
   float alpha = Alpha(roughness);
   rgbf f0 = F0(metalness, albedo);
@@ -107,6 +110,9 @@ float stdBRDF::SampleDiffusePD(const rgbf& albedo, float metalness,
 
 float stdBRDF::PDF(const rgbf& albedo, float metalness, float roughness,
                    const svecf& wi, const svecf& wo) {
+  if (wo[2] < 0)  // under the surface
+    return 0.f;
+
   float alpha = Alpha(roughness);
 
   float p_diffuse = SampleDiffusePD(albedo, metalness, roughness, wo);
@@ -114,7 +120,7 @@ float stdBRDF::PDF(const rgbf& albedo, float metalness, float roughness,
   svecf wm = (wi + wo).normalize();
   float wo_dot_n = std::max(EPSILON<float>, wo.cos_stheta());
   float pd_specular = GGX_D(alpha, wm) * wm.cos_stheta() / (4 * wo_dot_n);
-  float pd_diffuse = wi.cos_stheta() / PI<float>;
+  float pd_diffuse = std::max(0.f, wi.cos_stheta()) / PI<float>;
 
   float pd = p_diffuse * pd_diffuse + (1 - p_diffuse) * pd_specular;
 
@@ -123,6 +129,9 @@ float stdBRDF::PDF(const rgbf& albedo, float metalness, float roughness,
 
 tuple<svecf, float> stdBRDF::Sample(const rgbf& albedo, float metalness,
                                     float roughness, const svecf& wo) {
+  if (wo[2] < 0)  // under the surface
+    return {svecf{0.f, 0.f, 0.f}, 0.f};
+
   float alpha = Alpha(roughness);
 
   float p_diffuse = SampleDiffusePD(albedo, metalness, roughness, wo);

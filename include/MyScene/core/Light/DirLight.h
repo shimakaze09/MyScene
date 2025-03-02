@@ -11,6 +11,7 @@
 namespace My {
 // DirLight's radiance : intensity * color * delta(w)
 struct DirLight : Light {
+  [[range("0,")]]
   float intensity;
   rgbf color;
 

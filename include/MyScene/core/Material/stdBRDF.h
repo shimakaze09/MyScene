@@ -19,9 +19,11 @@ struct stdBRDF : Material {
   rgbf albedo_factor;
   Texture2D* albedo_texture;
 
+  [[range("0,1")]]
   float roughness_factor;
   Texture2D* roughness_texture;
 
+  [[range("0,1")]]
   float metalness_factor;
   Texture2D* metalness_texture;
 
