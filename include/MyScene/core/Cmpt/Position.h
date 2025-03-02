@@ -13,6 +13,6 @@ class Position : Component {
  public:
   pointf3 value{0.f};
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My::Cmpt

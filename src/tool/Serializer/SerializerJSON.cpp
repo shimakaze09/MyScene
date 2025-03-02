@@ -15,11 +15,11 @@ using namespace std;
 using namespace My;
 
 SerializerJSON::SerializerJSON() {
-  // regist all class in reflections
+  // register all class in reflections
   ReflTraitsIniter::Instance().Init(*this);
 
-  // regist all member variable type
-  VarPtrVisitor<SerializerJSON>::Regist<
+  // register all member variable type
+  VarPtrVisitor<SerializerJSON>::Register<
       bool, float, double, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t,
       uint32_t, uint64_t,
 
@@ -45,7 +45,7 @@ SerializerJSON::SerializerJSON() {
       string, set<SObj*>, vector<pointf3>, vector<pointf2>, vector<normalf>,
       vector<vecf3>, vector<valu3>>();
 
-  RegistSerializeOtherMember([this](MyJsonWriter& writer, const SObj* sobj) {
+  RegisterSerializeOtherMember([this](MyJsonWriter& writer, const SObj* sobj) {
     writer.Key("Components");
     writer.StartArray();
     for (auto [cmpt, size] : sobj->Components())

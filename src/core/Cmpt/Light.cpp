@@ -11,8 +11,8 @@
 using namespace My;
 using namespace std;
 
-void Cmpt::Light::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_Light();
+void Cmpt::Light::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_Light();
 }
 
 Cmpt::Light::Light() = default;

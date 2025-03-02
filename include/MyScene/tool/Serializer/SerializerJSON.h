@@ -29,10 +29,10 @@ class SerializerJSON : public ISerializer,
 
   // argument must be (My::MyJsonWriter&, const Obj*)
   template <typename Func>
-  void RegistSerializeOtherMember(Func&& func);
+  void RegisterSerializeOtherMember(Func&& func);
 
   template <typename Obj>
-  void RegistObjPtrMemVar();
+  void RegisterObjPtrMemVar();
 
  protected:
   void SerializeOtherMember(const void* obj);
@@ -107,7 +107,7 @@ class SerializerJSON : public ISerializer,
       callbacks;  // key is vtable
 
   using ReflTraitsVisitor::Visit;
-  using VarPtrVisitor<SerializerJSON>::Regist;
+  using VarPtrVisitor<SerializerJSON>::Register;
 };
 }  // namespace My
 

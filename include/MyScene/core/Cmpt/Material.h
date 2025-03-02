@@ -23,6 +23,6 @@ class Material : public Component {
 
   void SetMaterial(My::Material* material);
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My::Cmpt

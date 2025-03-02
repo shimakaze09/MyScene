@@ -20,7 +20,7 @@ class Geometry : public Component {
   Geometry(Geometry&& geo) noexcept;
   virtual ~Geometry();
 
-  static void OnRegist();
+  static void OnRegister();
 
   void SetPrimitive(Primitive* primitive);
 };

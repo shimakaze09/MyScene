@@ -22,6 +22,6 @@ class Light : public Component {
 
   void SetLight(My::Light* light);
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My::Cmpt

@@ -70,7 +70,7 @@ class [[serialize_kernel("path")]] TriMesh : public Primitive {
   void GenNormals();
   void GenTangents();
 
-  static void OnRegist();
+  static void OnRegister();
 
  private:
   Pool<Triangle> triPool;

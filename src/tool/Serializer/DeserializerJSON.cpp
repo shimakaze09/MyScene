@@ -68,7 +68,7 @@ class My::MyJsonDoc {
 };
 
 template <typename Func>
-void DeserializerJSON::RegistGenObj(Func&& func) {
+void DeserializerJSON::RegisterGenObj(Func&& func) {
   using T = std::remove_pointer_t<FuncTraits_Ret<Func>>;
   type2func[string(Reflection<T>::Instance().Name())] =
       [func = std::forward<Func>(func)](const MyJsonValue* cur) -> void* {
@@ -77,7 +77,7 @@ void DeserializerJSON::RegistGenObj(Func&& func) {
 }
 
 DeserializerJSON::DeserializerJSON() {
-  Regist<bool, float, double, int8_t, int16_t, int32_t, int64_t, uint8_t,
+  Register<bool, float, double, int8_t, int16_t, int32_t, int64_t, uint8_t,
          uint16_t, uint32_t, uint64_t,
 
          valf1, valf2, valf3, valf4, vali1, vali2, vali3, vali4, valu1, valu2,
@@ -102,7 +102,7 @@ DeserializerJSON::DeserializerJSON() {
          vector<pointf3>, vector<pointf2>, vector<normalf>, vector<vecf3>,
          vector<valu3>>();
 
-  RegistGenObj([](const rapidjson::Value* obj) {
+  RegisterGenObj([](const rapidjson::Value* obj) {
     const auto& iter_path = obj->FindMember("path");
     if (iter_path != obj->MemberEnd()) {
       string path = iter_path->value.GetString();
@@ -113,7 +113,7 @@ DeserializerJSON::DeserializerJSON() {
     return new Texture2D;
   });
 
-  RegistGenObj([](const rapidjson::Value* obj) {
+  RegisterGenObj([](const rapidjson::Value* obj) {
     const auto& iter_path = obj->FindMember("path");
     if (iter_path != obj->MemberEnd()) {
       string path = iter_path->value.GetString();

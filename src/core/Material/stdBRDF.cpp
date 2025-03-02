@@ -14,8 +14,8 @@
 using namespace My;
 using namespace std;
 
-void stdBRDF::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_stdBRDF();
+void stdBRDF::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_stdBRDF();
 }
 
 const rgbf stdBRDF::Albedo(const pointf2& uv) const {
@@ -56,12 +56,12 @@ rgbf stdBRDF::Fresnel(const rgbf& f0, float cos_theta) {
 }
 
 float stdBRDF::GGX_D(float alpha, const svecf& wm) {
-  return Ubpa::GGX_D(alpha, wm);
+  return My::GGX_D(alpha, wm);
 }
 
 float stdBRDF::GGX_G(float alpha, const svecf& wi, const svecf& wo,
                      const svecf& wm) {
-  return Ubpa::GGX_G(alpha, wi, wo, wm);
+  return My::GGX_G(alpha, wi, wo, wm);
 }
 
 float stdBRDF::Alpha(float roughness) noexcept {

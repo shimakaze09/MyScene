@@ -13,6 +13,6 @@ using namespace My;
 DirLight::DirLight(float intensity, const rgbf& color)
     : intensity(intensity), color(color) {}
 
-void DirLight::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_DirLight();
+void DirLight::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_DirLight();
 }

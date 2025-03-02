@@ -15,8 +15,8 @@
 using namespace My;
 using namespace std;
 
-void Cmpt::Root::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_Root();
+void Cmpt::Root::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_Root();
 }
 
 void Cmpt::Root::OnUpdate(const Transform* tsfm, L2W* l2w,

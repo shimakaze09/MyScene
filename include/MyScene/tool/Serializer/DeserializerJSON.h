@@ -80,9 +80,9 @@ class DeserializerJSON : public IDeserializer,
   void* rstObj{nullptr};
 
   template <typename Func>
-  void RegistParseObj(Func&& func);
+  void RegisterGenObj(Func&& func);
 
   // dynamic
-  std::map<std::string, std::function<void*(const MyJsonValue* cur)>> type2func;
+  std::map<std::string, std::function<void*(const MyJsonValue* obj)>> type2func;
 };
 }  // namespace My

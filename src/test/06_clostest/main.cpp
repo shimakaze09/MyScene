@@ -13,7 +13,7 @@ using namespace std;
 using namespace My;
 
 int main() {
-  Scene::OnRegist();
+  Scene::OnRegister();
 
   constexpr size_t width = 400;
   constexpr size_t height = 200;

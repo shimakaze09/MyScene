@@ -27,6 +27,6 @@ struct AreaLight : Light {
             Texture2D* texture = nullptr)
       : intensity{intensity}, color{color}, texture{texture} {}
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My

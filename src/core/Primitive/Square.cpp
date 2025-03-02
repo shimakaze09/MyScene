@@ -10,6 +10,6 @@
 
 using namespace My;
 
-void Square::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_Square();
+void Square::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_Square();
 }

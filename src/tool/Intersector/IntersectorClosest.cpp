@@ -62,7 +62,7 @@ IntersectorClosest::IntersectorClosest() {
     }
   };
 
-  visitor.Regist(intersect_square, intersect_sphere, intersect_tri);
+  visitor.Register(intersect_square, intersect_sphere, intersect_tri);
 }
 
 const IntersectorClosest::Rst IntersectorClosest::Visit(const BVH* bvh,

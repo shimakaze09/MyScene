@@ -18,6 +18,6 @@ struct PointLight : Light {
 
   PointLight(float intensity = 1.f, const rgbf& color = rgbf{1.f, 1.f, 1.f});
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My

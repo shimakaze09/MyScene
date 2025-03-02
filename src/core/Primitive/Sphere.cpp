@@ -10,6 +10,6 @@
 
 using namespace My;
 
-void Sphere::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_Sphere();
+void Sphere::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_Sphere();
 }

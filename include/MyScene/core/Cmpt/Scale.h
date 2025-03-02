@@ -13,6 +13,6 @@ class Scale : Component {
  public:
   scalef3 value{1.f};
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My::Cmpt

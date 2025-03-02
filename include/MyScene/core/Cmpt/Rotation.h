@@ -13,6 +13,6 @@ class Rotation : Component {
  public:
   quatf value{quatf::identity()};
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My::Cmpt

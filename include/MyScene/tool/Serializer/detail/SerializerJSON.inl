@@ -7,14 +7,14 @@
 namespace My {
 template <typename T>
 void SerializerJSON::ImplVisit(T* const& obj) {
-  if (!obj || !ReflTraitsVisitor::IsRegisted(obj))
+  if (!obj || !ReflTraitsVisitor::IsRegistered(obj))
     writer.Null();
   else
     ReflTraitsVisitor::Visit(obj);
 }
 
 template <typename Func>
-void SerializerJSON::RegistSerializeOtherMember(Func&& func) {
+void SerializerJSON::RegisterSerializeOtherMember(Func&& func) {
   using ArgList = FuncTraits_ArgList<Func>;
   static_assert(Length_v<ArgList> == 2,
                 "arguments must be (My::MyJsonWriter&, const Obj*)");
@@ -35,7 +35,7 @@ void SerializerJSON::RegistSerializeOtherMember(Func&& func) {
 }
 
 template <typename Obj>
-void SerializerJSON::RegistObjPtrMemVar() {
-  VarPtrVisitor<SerializerJSON>::Regist<Obj*>();
+void SerializerJSON::RegisterObjPtrMemVar() {
+  VarPtrVisitor<SerializerJSON>::Register<Obj*>();
 }
 }  // namespace My

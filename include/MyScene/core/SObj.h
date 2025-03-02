@@ -54,7 +54,7 @@ class SObj {
   // Attach, Detach, Release, World::CreateEntity
   void AddCommand(const std::function<void()>& command);
 
-  static void OnRegist();
+  static void OnRegister();
 
  protected:
   SObj() : entity{nullptr} {}

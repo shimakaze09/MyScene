@@ -24,7 +24,7 @@ class Scene : public World {
   std::tuple<SObj*, Cmpts*...> CreateSObj(const std::string& name,
                                           SObj* parent = nullptr);
 
-  static void OnRegist();
+  static void OnRegister();
 
  private:
   using World::CreateEntity;

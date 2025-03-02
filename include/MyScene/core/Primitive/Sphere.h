@@ -15,6 +15,6 @@ class Sphere : public Primitive {
   static constexpr pointf3 center{0, 0, 0};
   static constexpr float radius{1.f};
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My

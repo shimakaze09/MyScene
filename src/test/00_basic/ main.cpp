@@ -15,7 +15,7 @@ class Mover : public Component {
 };
 
 int main() {
-  Scene::OnRegist();
+  Scene::OnRegister();
 
   Scene scene("scene");
 

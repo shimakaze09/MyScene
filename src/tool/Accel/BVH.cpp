@@ -32,7 +32,7 @@ class BVH::BVHInitializer
       BVH*, unordered_map<const Primitive*, bboxf3>&)>;
 
  public:
-  BVHInitializer() { Regist<Sphere, TriMesh, Square>(); }
+  BVHInitializer() { Register<Sphere, TriMesh, Square>(); }
 
   static BVH::BVHInitializer& Instance() {
     static BVH::BVHInitializer instance;
@@ -84,14 +84,14 @@ BVH::BVH(Scene* scene) {
   Init(scene);
 }
 
-namespace Ubpa::detail::BVH_ {
+namespace My::detail::BVH_ {
 const Primitive* get_main_primitive(const Primitive* primitive) {
   if (vtable_is<Triangle>(primitive))
     return static_cast<const Triangle*>(primitive)->mesh;
   else
     return primitive;
 }
-}  // namespace Ubpa::detail::BVH_
+}  // namespace My::detail::BVH_
 
 const transformf& BVH::GetW2L(const Primitive* primitive) const {
   const auto target = p2wl.find(detail::BVH_::get_main_primitive(primitive));

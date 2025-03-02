@@ -17,6 +17,6 @@ rgbf AreaLight::Radiance(const pointf2& uv) const noexcept {
   return texture->Sample(uv).to_rgb();
 }
 
-void AreaLight::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_AreaLight();
+void AreaLight::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_AreaLight();
 }

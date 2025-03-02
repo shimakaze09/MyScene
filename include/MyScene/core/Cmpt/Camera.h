@@ -21,7 +21,7 @@ class [[info("pinhole camera")]] Camera : public Component {
   [[info("in verticle, in radian")]] [[pretty_name("field of view")]]
   float fov{My::to_radian(60.f)};
 
-  static void OnRegist();
+  static void OnRegister();
 
   struct CoordinateSystem {
     pointf3 pos;

@@ -29,6 +29,6 @@ class Triangle : public Primitive {
   const vecf3 LerpTangent(float w, float u, float v) const;
   const bboxf3 Box() const;
 
-  static void OnRegist();
+  static void OnRegister();
 };
 }  // namespace My

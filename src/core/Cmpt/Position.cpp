@@ -11,6 +11,6 @@
 using namespace My;
 using namespace std;
 
-void Cmpt::Position::OnRegist() {
-  detail::dynamic_reflection::ReflRegist_Position();
+void Cmpt::Position::OnRegister() {
+  detail::dynamic_reflection::ReflRegister_Position();
 }

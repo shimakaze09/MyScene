@@ -13,7 +13,7 @@ using namespace std;
 using namespace My;
 
 int main() {
-  Scene::OnRegist();
+  Scene::OnRegister();
 
   Scene scene("scene");
 

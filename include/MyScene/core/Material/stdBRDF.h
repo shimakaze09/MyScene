@@ -60,7 +60,7 @@ struct stdBRDF : Material {
   static std::tuple<svecf, float> Sample(const rgbf& albedo, float metalness,
                                          float roughness, const svecf& wo);
 
-  static void OnRegist();
+  static void OnRegister();
 
  private:
   static float SampleDiffusePD(const rgbf& albedo, float metalness,

@@ -26,30 +26,30 @@ Scene::~Scene() {
   delete root;
 }
 
-void Scene::OnRegist() {
+void Scene::OnRegister() {
   // Cmpt
-  CmptRegister::Instance()
-      .Regist<Cmpt::Camera, Cmpt::Geometry, Cmpt::L2W, Cmpt::Light,
-              Cmpt::Material, Cmpt::Position, Cmpt::Root, Cmpt::Rotation,
-              Cmpt::Scale, Cmpt::SObjPtr, Cmpt::Transform>();
+  CmptRegistrar::Instance()
+      .Register<Cmpt::Camera, Cmpt::Geometry, Cmpt::L2W, Cmpt::Light,
+                Cmpt::Material, Cmpt::Position, Cmpt::Root, Cmpt::Rotation,
+                Cmpt::Scale, Cmpt::SObjPtr, Cmpt::Transform>();
 
   // SObj, Scene
-  detail::dynamic_reflection::ReflRegist_Scene();
-  SObj::OnRegist();
+  detail::dynamic_reflection::ReflRegister_Scene();
+  SObj::OnRegister();
 
   // Light
-  AreaLight::OnRegist();
-  DirLight::OnRegist();
-  EnvLight::OnRegist();
-  PointLight::OnRegist();
+  AreaLight::OnRegister();
+  DirLight::OnRegister();
+  EnvLight::OnRegister();
+  PointLight::OnRegister();
 
   // Material
-  stdBRDF::OnRegist();
-  Texture2D::OnRegist();
+  stdBRDF::OnRegister();
+  Texture2D::OnRegister();
 
   // Primitive
-  Sphere::OnRegist();
-  Square::OnRegist();
-  Triangle::OnRegist();
-  TriMesh::OnRegist();
+  Sphere::OnRegister();
+  Square::OnRegister();
+  Triangle::OnRegister();
+  TriMesh::OnRegister();
 }
