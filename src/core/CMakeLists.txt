@@ -5,19 +5,16 @@ DOWNLOAD_ZIP_PRO(
         SHA256 a3cf514eec322ce11c0b20590758e8d01053963de52dba2da9c3cbb780d87699
 )
 
-GLOBAL_GROUP_SOURCES(RST SOURCES PATHS
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        "${PROJECT_SOURCE_DIR}/include/MyScene/core"
-)
-
-ADD_TARGET_GDR(MODE "LIB"
-        SOURCES ${SOURCES}
-        INTERFACE_INC ON
-        PUBLIC_GLIBS
-        "My::MyGM_core"
-        "My::MyECS_core"
-        "My::MyDP_core"
-        "My::MyTemplate_core"
+ADD_TARGET(
+        MODE STATIC
+        SOURCE "${PROJECT_SOURCE_DIR}/include/UScene/core"
+        LIB
+        My::MyGM_core
+        My::MyECS_core
+        My::MyDP_core
+        My::MyTemplate_core
+        INC
+        include
 )
 
 GET_TARGET_NAME(CORE ${PROJECT_SOURCE_DIR}/src/core)
@@ -35,7 +32,7 @@ FUNCTION(GEN_REFL DIR)
     )
 ENDFUNCTION()
 
-IF(true)
+IF (true)
     GEN_REFL(Cmpt)
     GEN_REFL(Material)
     GEN_REFL(Light)
