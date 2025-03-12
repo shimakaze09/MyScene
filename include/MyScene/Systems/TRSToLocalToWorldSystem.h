@@ -2,7 +2,14 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef TRSTOLOCALTOWORLDSYSTEM_H
-#define TRSTOLOCALTOWORLDSYSTEM_H
+#pragma once
 
-#endif //TRSTOLOCALTOWORLDSYSTEM_H
+#include <MyECS/World.h>
+
+namespace My {
+namespace MyScene {
+struct TRSToLocalToWorldSystem {
+  static void OnUpdate(UECS::Schedule& schedule);
+};
+}  // namespace MyScene
+}  // namespace My

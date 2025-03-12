@@ -2,7 +2,14 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef SCALE_H
-#define SCALE_H
+#pragma once
 
-#endif //SCALE_H
+namespace My {
+namespace MyScene {
+struct Scale {
+  float value{1.f};
+};
+}  // namespace MyScene
+}  // namespace My
+
+#include "details/Scale_AutoRefl.inl"

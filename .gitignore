@@ -691,3 +691,4 @@ FodyWeavers.xsd
 _deps/
 *.myscene
 dynamic_reflection/
+*_AutoRefl.inl

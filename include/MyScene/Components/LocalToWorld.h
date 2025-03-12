@@ -2,7 +2,16 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef LOCALTOWORLD_H
-#define LOCALTOWORLD_H
+#pragma once
 
-#endif //LOCALTOWORLD_H
+#include <MyGM/MyGM.h>
+
+namespace My {
+namespace MyScene {
+struct LocalToWorld {
+  transformf value{transformf::eye()};
+};
+}  // namespace MyScene
+}  // namespace My
+
+#include "details/LocalToWorld_AutoRefl.inl"
