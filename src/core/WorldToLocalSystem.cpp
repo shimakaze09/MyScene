@@ -14,5 +14,5 @@ void WorldToLocalSystem::OnUpdate(MyECS::Schedule& schedule) {
       [](WorldToLocal* w2l, const LocalToWorld* l2w) {
         w2l->value = l2w->value.inverse();
       },
-      "TRSToWorldToLocalSystem");
+      SystemFuncName);
 }

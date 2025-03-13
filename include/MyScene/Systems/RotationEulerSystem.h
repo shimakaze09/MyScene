@@ -8,11 +8,11 @@
 
 namespace My {
 namespace MyScene {
-class TRSToLocalToWorldSystem : public MyECS::System {
+class RotationEulerSystem : public MyECS::System {
  public:
   using System::System;
 
-  static constexpr const char SystemFuncName[] = "TRSToWorldToLocalSystem";
+  static constexpr char SystemFuncName[] = "RotationEulerSystem";
 
   virtual void OnUpdate(MyECS::Schedule& schedule) override;
 };

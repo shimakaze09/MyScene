@@ -2,7 +2,16 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef ROTATIONEULER_H
-#define ROTATIONEULER_H
+#pragma once
 
-#endif //ROTATIONEULER_H
+#include <MyGM/euler.h>
+
+namespace My {
+namespace MyScene {
+struct RotationEuler {
+  eulerf value{0.f};
+};
+}  // namespace MyScene
+}  // namespace My
+
+#include "details/RotationEuler_AutoRefl.inl"

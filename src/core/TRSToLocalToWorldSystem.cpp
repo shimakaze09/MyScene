@@ -48,24 +48,24 @@ void TRSToLocalToWorldSystem::OnUpdate(MyECS::Schedule& schedule) {
             chunkL2W[i].value = transformf{chunkR[i].value, chunkS[i].value};
           }
           // 100
-          else if (!containsT && !containsR && containsS) {
+          else if (containsT && !containsR && !containsS) {
             chunkL2W[i].value = transformf{chunkT[i].value};
           }
           // 101
-          else if (!containsT && !containsR && containsS) {
+          else if (containsT && !containsR && containsS) {
             chunkL2W[i].value =
                 transformf{chunkT[i].value, scalef3{chunkS[i].value}};
           }
           // 110
-          else if (!containsT && !containsR && containsS) {
+          else if (containsT && containsR && !containsS) {
             chunkL2W[i].value = transformf{chunkT[i].value, chunkR[i].value};
           }
           // 111
-          else /* if (!containsT && !containsR && containsS)*/ {
+          else /* if (containsT && containsR && containsS)*/ {
             chunkL2W[i].value = transformf{chunkT[i].value, chunkR[i].value,
                                            scalef3{chunkS[i].value}};
           }
         }
       },
-      "TRSToLocalToWorldSystem", filter);
+      SystemFuncName, filter);
 }

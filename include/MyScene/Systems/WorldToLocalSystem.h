@@ -12,6 +12,8 @@ class WorldToLocalSystem : public MyECS::System {
  public:
   using System::System;
 
+  static constexpr char SystemFuncName[] = "WorldToLocalSystem";
+
   virtual void OnUpdate(MyECS::Schedule& schedule) override;
 };
 }  // namespace MyScene

@@ -9,10 +9,10 @@
 
 namespace My {
 namespace MyScene {
-struct Parent {
-  MyECS::Entity value{MyECS::Entity::Invalid()};
+struct Children {
+  std::vector<MyECS::Entity> value;
 };
 }  // namespace MyScene
 }  // namespace My
 
-#include "details/Parent_AutoRefl.inl"
+#include "details/Children_AutoRefl.inl"
