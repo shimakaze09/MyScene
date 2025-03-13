@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <MyGM/MyGM.h>
+#include <MyGM/transform.h>
 
 namespace My {
 namespace MyScene {

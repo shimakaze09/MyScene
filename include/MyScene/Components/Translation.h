@@ -2,7 +2,16 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef TRANSLATION_H
-#define TRANSLATION_H
+#pragma once
 
-#endif //TRANSLATION_H
+#include <MyGM/vec.h>
+
+namespace My {
+namespace MyScene {
+struct Translation {
+  vecf3 value{0.f};
+};
+}  // namespace MyScene
+}  // namespace My
+
+#include "details/Translation_AutoRefl.inl"

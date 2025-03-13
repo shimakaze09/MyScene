@@ -2,7 +2,16 @@
 // Created by Admin on 13/03/2025.
 //
 
-#ifndef ROTATION_H
-#define ROTATION_H
+#pragma once
 
-#endif //ROTATION_H
+#include <MyGM/quat.h>
+
+namespace My {
+namespace MyScene {
+struct Rotation {
+  quatf value{quatf::identity()};
+};
+}  // namespace MyScene
+}  // namespace My
+
+#include "details/Rotation_AutoRefl.inl"
