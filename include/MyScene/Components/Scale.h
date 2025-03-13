@@ -4,12 +4,10 @@
 
 #pragma once
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct Scale {
   float value{1.f};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/Scale_AutoRefl.inl"

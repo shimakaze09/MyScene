@@ -6,12 +6,10 @@
 
 #include <MyGM/quat.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct Rotation {
   quatf value{quatf::identity()};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/Rotation_AutoRefl.inl"

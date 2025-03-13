@@ -6,8 +6,7 @@
 
 #include <MyECS/World.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 class WorldToLocalSystem : public MyECS::System {
  public:
   using System::System;
@@ -16,5 +15,4 @@ class WorldToLocalSystem : public MyECS::System {
 
   virtual void OnUpdate(MyECS::Schedule& schedule) override;
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene

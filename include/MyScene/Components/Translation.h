@@ -6,12 +6,10 @@
 
 #include <MyGM/vec.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct Translation {
   vecf3 value{0.f};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/Translation_AutoRefl.inl"

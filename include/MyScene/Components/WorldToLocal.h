@@ -6,12 +6,10 @@
 
 #include <MyGM/transform.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct WorldToLocal {
   transformf value{transformf::eye()};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/WorldToLocal_AutoRefl.inl"

@@ -6,12 +6,10 @@
 
 #include <MyGM/transform.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct LocalToParent {
   transformf value{transformf::eye()};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/LocalToParent_AutoRefl.inl"

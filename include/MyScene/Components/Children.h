@@ -7,12 +7,10 @@
 #include <MyECS/Entity.h>
 #include <vector>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct Children {
   std::vector<MyECS::Entity> value;
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/Children_AutoRefl.inl"

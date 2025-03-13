@@ -6,12 +6,10 @@
 
 #include <MyGM/euler.h>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct RotationEuler {
   eulerf value{0.f};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/RotationEuler_AutoRefl.inl"

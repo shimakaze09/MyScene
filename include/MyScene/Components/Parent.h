@@ -7,12 +7,10 @@
 #include <MyECS/Entity.h>
 #include <vector>
 
-namespace My {
-namespace MyScene {
+namespace My::MyScene {
 struct Parent {
   MyECS::Entity value{MyECS::Entity::Invalid()};
 };
-}  // namespace MyScene
-}  // namespace My
+}  // namespace My::MyScene
 
 #include "details/Parent_AutoRefl.inl"
