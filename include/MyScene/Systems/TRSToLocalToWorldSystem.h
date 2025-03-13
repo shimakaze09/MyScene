@@ -8,8 +8,11 @@
 
 namespace My {
 namespace MyScene {
-struct TRSToLocalToWorldSystem {
-  static void OnUpdate(UECS::Schedule& schedule);
+class TRSToLocalToWorldSystem : public MyECS::System {
+ public:
+  using System::System;
+
+  virtual void OnUpdate(MyECS::Schedule& schedule) override;
 };
 }  // namespace MyScene
 }  // namespace My

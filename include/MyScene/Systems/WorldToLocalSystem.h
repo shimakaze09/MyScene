@@ -3,13 +3,16 @@
 //
 
 #pragma once
- 
- #include <MyECS/World.h>
- 
- namespace My {
- namespace MyScene {
- struct WorldToLocalSystem {
-   static void OnUpdate(My::Schedule& schedule);
- };
- }
- }
+
+#include <MyECS/World.h>
+
+namespace My {
+namespace MyScene {
+class WorldToLocalSystem : public MyECS::System {
+ public:
+  using System::System;
+
+  virtual void OnUpdate(MyECS::Schedule& schedule) override;
+};
+}  // namespace MyScene
+}  // namespace My

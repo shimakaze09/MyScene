@@ -12,9 +12,12 @@ using namespace My::MyScene;
 using namespace My;
 using namespace std;
 
-struct PrintSystem {
-  static void OnUpdate(Schedule& s) {
-    s.Register(
+class PrintSystem : public System {
+ public:
+  using System::System;
+
+  virtual void OnUpdate(Schedule& schedule) override {
+    schedule.Register(
         [](const WorldToLocal* w2l, const LocalToWorld* l2w) {
           l2w->value.print();
           w2l->value.print();
